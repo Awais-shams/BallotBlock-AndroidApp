@@ -64,7 +64,7 @@
         android:layout_marginTop="48dp"
         android:background="@drawable/custom_input_text_fields"
         android:drawableStart="@drawable/custom_lock_icon"
-        android:drawablePadding="12dp"
+        android:drawablePadding="13dp"
         android:ems="10"
         android:hint="@string/password"
         android:importantForAutofill="no"
