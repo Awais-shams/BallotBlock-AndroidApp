@@ -10,8 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BallotBlock">
         <activity
-            android:name=".Authentication.Register1"
+            android:name=".Authentication.Register2"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Authentication.Register1"
+            android:exported="true"
+            android:parentActivityName=".Authentication.LoginScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

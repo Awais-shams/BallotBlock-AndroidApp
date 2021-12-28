@@ -8,43 +8,30 @@
     tools:context=".Authentication.Register1">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/myToolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleMarginStart="100dp" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/myToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"
-                android:background=""
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:titleMarginStart="150dp"
-                app:title="BallotBlock" />
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="59dp"
-                android:layout_height="41dp"
-                android:layout_marginStart="5dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/myToolbar"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.533"
-                app:srcCompat="@drawable/ic_arrow_back"
-                tools:ignore="ImageContrastCheck"
-                android:contentDescription="@string/todo" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/themePrimary" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -52,26 +39,37 @@
         android:id="@+id/createAccountTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="64dp"
         android:text="@string/create_an_account"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/emailTxt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/createAccountTxt"
+        app:layout_constraintEnd_toStartOf="@+id/createAccountTxt"
+        app:layout_constraintHorizontal_bias="0.879"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/createAccountTxt"
+        app:srcCompat="@drawable/ic_one_svg" />
 
     <EditText
-        android:id="@+id/emailTxt"
+        android:id="@+id/newEmailTxt"
         android:layout_width="325dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/custom_input_text_fields"
         android:drawableStart="@drawable/custom_email_icon"
         android:drawablePadding="12dp"
         android:ems="10"
-        android:hint="@string/email_id"
+        android:hint="Enter Email Id"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         android:padding="5dp"
@@ -79,21 +77,21 @@
         android:paddingEnd="10dp"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/passTxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createAccountTxt"
         tools:ignore="TextContrastCheck" />
 
     <EditText
         android:id="@+id/passTxt"
         android:layout_width="325dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="356dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/custom_input_text_fields"
         android:drawableStart="@drawable/custom_lock_icon"
         android:drawablePadding="13dp"
         android:ems="10"
-        android:hint="@string/password"
+        android:hint="Create New Password"
         android:importantForAutofill="no"
         android:inputType="textPassword"
         android:padding="5dp"
@@ -101,10 +99,25 @@
         android:paddingEnd="10dp"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newEmailTxt"
         tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/nextBtn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/login_custom_button"
+        android:text="Next"
+        android:textAllCaps="false"
+        android:onClick="GoToNext"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passTxt" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

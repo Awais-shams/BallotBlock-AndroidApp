@@ -1,9 +1,12 @@
 package com.example.ballotblock.Authentication;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toolbar;
+import android.view.View;
 
 import com.example.ballotblock.R;
 
@@ -16,6 +19,16 @@ public class Register1 extends AppCompatActivity {
         setContentView(R.layout.activity_register1);
 
         toolbar = findViewById(R.id.myToolbar);
-        getSupportActionBar();
+        setSupportActionBar(toolbar);
+
+//        for back button, we can also customize back btn - to customize see link bookmarked
+        getSupportActionBar().setTitle("BallotBlock");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    public void GoToNext(View view) {
+        Intent intent = new Intent(this, Register2.class);
+        startActivity(intent);
     }
 }
