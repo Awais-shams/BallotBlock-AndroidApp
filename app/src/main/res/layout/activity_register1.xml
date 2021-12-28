@@ -6,28 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".Authentication.Register1">
 
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:title="BallotBlock"
-        app:titleMarginStart="40dp"
-        app:logo="bb"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-    </androidx.appcompat.widget.Toolbar>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:title="BallotBlock" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
         android:id="@+id/createAccountTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:text="Create an Account.."
+        android:text="@string/create_an_account"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -40,6 +41,7 @@
         android:id="@+id/emailTxt"
         android:layout_width="325dp"
         android:layout_height="60dp"
+        android:layout_marginBottom="48dp"
         android:background="@drawable/custom_input_text_fields"
         android:drawableStart="@drawable/custom_email_icon"
         android:drawablePadding="12dp"
@@ -52,16 +54,16 @@
         android:paddingEnd="10dp"
         android:textColor="@color/black"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/passTxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="TextContrastCheck"
-        tools:layout_editor_absoluteY="188dp" />
+        tools:ignore="TextContrastCheck" />
 
     <EditText
         android:id="@+id/passTxt"
         android:layout_width="325dp"
         android:layout_height="60dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginBottom="356dp"
         android:background="@drawable/custom_input_text_fields"
         android:drawableStart="@drawable/custom_lock_icon"
         android:drawablePadding="13dp"
@@ -74,9 +76,9 @@
         android:paddingEnd="10dp"
         android:textColor="@color/black"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailTxt"
         tools:ignore="TextContrastCheck" />
 
 
