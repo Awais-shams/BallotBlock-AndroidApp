@@ -4,6 +4,178 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/themeBackground"
     tools:context=".Authentication.Register2">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/myToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleMarginStart="100dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/themePrimary" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/setupProfileTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="@string/setup_your_profile"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+    <ImageView
+        android:id="@+id/twoImageView"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/setupProfileTxt"
+        app:layout_constraintEnd_toStartOf="@+id/setupProfileTxt"
+        app:layout_constraintHorizontal_bias="0.879"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/setupProfileTxt"
+        app:srcCompat="@drawable/ic_two_svg"
+        android:contentDescription="@string/todo" />
+
+    <EditText
+        android:id="@+id/fNameTxt"
+        android:layout_width="325dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/custom_input_text_fields"
+        android:ems="10"
+        android:hint="@string/enter_name"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:padding="5dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="10dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setupProfileTxt"
+        tools:ignore="TextContrastCheck" />
+
+    <EditText
+        android:id="@+id/lNameTxt"
+        android:layout_width="325dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custom_input_text_fields"
+        android:ems="10"
+        android:hint="@string/create_new_password"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:padding="5dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="10dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fNameTxt"
+        tools:ignore="TextContrastCheck" />
+
+    <EditText
+        android:id="@+id/cnicTxt"
+        android:layout_width="325dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custom_input_text_fields"
+        android:ems="10"
+        android:hint="@string/enter_cnic"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:padding="5dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="10dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lNameTxt"
+        tools:ignore="TextContrastCheck" />
+
+    <EditText
+        android:id="@+id/dobTxt"
+        android:layout_width="325dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custom_input_text_fields"
+        android:ems="10"
+        android:hint="@string/enter_dob"
+        android:importantForAutofill="no"
+        android:inputType="date"
+        android:padding="5dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="10dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cnicTxt"
+        tools:ignore="TextContrastCheck" />
+
+    <EditText
+        android:id="@+id/addrressTxt"
+        android:layout_width="325dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custom_input_text_fields"
+        android:ems="10"
+        android:hint="@string/enter_address"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:padding="5dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="10dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dobTxt"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/finishSignUpBtn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/login_custom_button"
+        android:onClick="FinishSignUp"
+        android:text="@string/finish"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addrressTxt" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
