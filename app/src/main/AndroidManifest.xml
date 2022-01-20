@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BallotBlock">
         <activity
+            android:name=".navigation.HomeScreen"
+            android:exported="true" />
+        <activity
             android:name=".Authentication.ForgotPassword"
             android:exported="true">
             <intent-filter>

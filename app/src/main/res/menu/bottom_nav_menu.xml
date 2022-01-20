@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_homepage"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/now_vote"
+        android:enabled="true"
+        android:icon="@drawable/ic_vote"
+        android:title="@string/vote_now"
+        />
+    <item
+        android:id="@+id/Candidate"
+        android:enabled="true"
+        android:icon="@drawable/ic_candidate"
+        android:title="@string/candidate"
+        />
+    <item
+        android:id="@+id/Profile"
+        android:enabled="true"
+        android:icon="@drawable/ic_user"
+        android:title="@string/profile"
+        />
+
+</menu>
