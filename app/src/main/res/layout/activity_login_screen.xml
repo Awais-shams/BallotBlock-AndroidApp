@@ -59,6 +59,7 @@
         android:background="@drawable/login_custom_button"
         android:textColor="@color/white"
         android:text="@string/log_in"
+        android:onClick="LogIn"
         android:textAllCaps="false"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"

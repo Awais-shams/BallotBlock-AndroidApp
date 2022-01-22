@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "677902202124",
+    "project_id": "ballotblock-c7af9",
+    "storage_bucket": "ballotblock-c7af9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677902202124:android:924b1aa4173eb04f4b4529",
+        "android_client_info": {
+          "package_name": "com.example.ballotblock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677902202124-8hgov08soolef49ljta8haekjqpfnvug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjXHwjHS8vDtopPjxSy79plT84MhF9MIM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "677902202124-8hgov08soolef49ljta8haekjqpfnvug.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
