@@ -102,7 +102,7 @@
         tools:ignore="TextContrastCheck" />
 
     <Button
-        android:id="@+id/finishSignUpBtn"
+        android:id="@+id/next1Btn"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_marginTop="32dp"

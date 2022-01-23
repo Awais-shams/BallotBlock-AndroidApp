@@ -43,4 +43,6 @@
     <string name="status">Status</string>
     <string name="save_to_sqlite">Save to SQLite</string>
     <string name="add_candidate">Add Candidate</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
 </resources>

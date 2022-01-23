@@ -25,6 +25,8 @@ public class Register2 extends AppCompatActivity {
 
     }
 
-    public void FinishSignUp(View view) {
+    public void GoToNext2(View view) {
+        Intent intent = new Intent(this, Register3.class);
+        startActivity(intent);
     }
 }

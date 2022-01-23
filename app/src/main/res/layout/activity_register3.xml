@@ -53,12 +53,63 @@
         android:id="@+id/twoImageView"
         android:layout_width="32dp"
         android:layout_height="32dp"
+        android:contentDescription="@string/todo"
         app:layout_constraintBottom_toBottomOf="@+id/letsFinishTxt"
         app:layout_constraintEnd_toStartOf="@+id/letsFinishTxt"
         app:layout_constraintHorizontal_bias="0.879"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/letsFinishTxt"
-        app:srcCompat="@drawable/ic_three_svg"
-        android:contentDescription="@string/todo" />
+        app:srcCompat="@drawable/ic_three_svg" />
+
+    <TextView
+        android:id="@+id/imgUploadTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Upload ID Proof"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.127"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/letsFinishTxt" />
+
+    <ImageView
+        android:id="@+id/uploadImg"
+        android:layout_width="364dp"
+        android:layout_height="395dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/browseBtn"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/browseBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="96dp"
+        android:onClick="browseImage"
+        android:text="Browse"
+        app:layout_constraintBottom_toBottomOf="@+id/imgUploadTxt"
+        app:layout_constraintStart_toEndOf="@+id/imgUploadTxt"
+        app:layout_constraintTop_toTopOf="@+id/imgUploadTxt" />
+
+    <Button
+        android:id="@+id/finishSignUpBtn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_custom_button"
+        android:onClick="Finish"
+        android:text="@string/finish"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/uploadImg" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

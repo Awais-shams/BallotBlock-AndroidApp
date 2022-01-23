@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ballotblock">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -63,7 +66,8 @@
         </activity>
         <activity
             android:name=".Authentication.Register3"
-            android:exported="true">
+            android:exported="true"
+            android:parentActivityName=".Authentication.Register2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

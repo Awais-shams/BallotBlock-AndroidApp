@@ -1,19 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".navigation.CandidatesListEdit">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:paddingBottom="16dp"
+android:paddingLeft="16dp"
+android:paddingRight="16dp"
+android:paddingTop="16dp"
+tools:context=".navigation.CandidatesListEdit">
 
-    <TextView
-        android:id="@+id/textViewID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+<EditText
+    android:id="@+id/candidateNameETEdit"
+    android:layout_width="265dp"
+    android:layout_height="wrap_content"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentEnd="true"
+    android:layout_marginStart="55dp"
+    android:layout_marginTop="69dp"
+    android:layout_marginEnd="75dp"
+    android:ems="10"
+    android:hint="@string/candidate_s_name"
+    android:importantForAutofill="no"
+    android:inputType="textPersonName"
+    android:minHeight="48dp"
+    tools:ignore="TextContrastCheck" />
+
+<EditText
+    android:id="@+id/candidateElectionTypeETEdit"
+    android:layout_width="265dp"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/candidateNameETEdit"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentEnd="true"
+    android:layout_marginStart="55dp"
+    android:layout_marginTop="45dp"
+    android:layout_marginEnd="75dp"
+    android:ems="10"
+    android:hint="@string/election_type"
+    android:importantForAutofill="no"
+    android:inputType="textPersonName"
+    android:minHeight="48dp"
+    tools:ignore="TextContrastCheck" />
+
+<EditText
+    android:id="@+id/candidateDesignationETEdit"
+    android:layout_width="265dp"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/candidateElectionTypeETEdit"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentEnd="true"
+    android:layout_marginStart="55dp"
+    android:layout_marginTop="50dp"
+    android:layout_marginEnd="75dp"
+    android:ems="10"
+    android:hint="@string/designation"
+    android:importantForAutofill="no"
+    android:inputType="number|textPersonName|phone"
+    android:minHeight="48dp"
+    tools:ignore="TextContrastCheck" />
+
+<EditText
+    android:id="@+id/candidateVotingEndTimeETEdit"
+    android:layout_width="265dp"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/candidateDesignationETEdit"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentEnd="true"
+    android:layout_marginStart="55dp"
+    android:layout_marginTop="52dp"
+    android:layout_marginEnd="75dp"
+    android:ems="10"
+    android:hint="@string/voting_end_time"
+    android:importantForAutofill="no"
+    android:inputType="textWebEmailAddress|textPersonName|textEmailSubject"
+    android:minHeight="48dp"
+    tools:ignore="TextContrastCheck" />
+
+<EditText
+    android:id="@+id/candidateStatusETEdit"
+    android:layout_width="265dp"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/candidateVotingEndTimeETEdit"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentEnd="true"
+    android:layout_marginStart="55dp"
+    android:layout_marginTop="50dp"
+    android:layout_marginEnd="75dp"
+    android:ems="10"
+    android:hint="@string/status"
+    android:importantForAutofill="no"
+    android:inputType="textPersonName"
+    android:minHeight="48dp"
+    tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/btnUpdate"
+        android:layout_width="117dp"
+        android:layout_height="59dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="51dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="UpdateRecord"
+        android:text="@string/update" />
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="135dp"
+        android:layout_height="59dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="44dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="16dp"
+        android:layout_toEndOf="@id/btnUpdate"
+        android:onClick="DeleteRecord"
+        android:text="@string/delete" />
+
+</RelativeLayout>

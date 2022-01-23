@@ -162,13 +162,13 @@
         tools:ignore="TextContrastCheck" />
 
     <Button
-        android:id="@+id/finishSignUpBtn"
+        android:id="@+id/next2Btn"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/login_custom_button"
-        android:onClick="FinishSignUp"
-        android:text="@string/finish"
+        android:onClick="GoToNext2"
+        android:text="@string/next"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="20sp"
