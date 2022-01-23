@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BallotBlock">
         <activity
+            android:name=".navigation.Vote"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".navigation.HomeScreen"
             android:exported="true" />
         <activity

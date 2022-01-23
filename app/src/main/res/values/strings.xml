@@ -26,4 +26,13 @@
     <string name="vote_now">Vote Now</string>
     <string name="home">Home</string>
     <string name="apply_for_candidate">Apply For Candidate</string>
+    <string name="election_type">Election Type</string>
+    <string name="election_date_will_appear_here">[Election Date will appear here]</string>
+    <string name="voting_start_time_will_appear_here">[Voting Start Time will appear here]</string>
+    <string name="voting_end_time_will_appear_here">[Voting End Time will appear here]</string>
+    <string name="designations">Designations:</string>
+    <string name="election_date">Election Date:</string>
+    <string name="voting_start_time">Voting Start Time:</string>
+    <string name="voting_end_time">Voting End Time:</string>
+    <string name="designation_will_appear_here">[Designation will appear here]</string>
 </resources>

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.ballotblock.R;
 import com.example.ballotblock.navigation.Home;
+import com.example.ballotblock.navigation.HomeScreen;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -78,11 +79,17 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     public void updateUI(FirebaseUser account){
         if(account != null) {
             Toast.makeText(this,"You Signed In successfully",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(LoginScreen.this, Home.class);
+            Intent intent = new Intent(LoginScreen.this, HomeScreen.class);
             startActivity(intent);
         }
         else {
 //            Toast.makeText(this,"Authentication Failed.",Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        FirebaseAuth.getInstance().signOut();
     }
 }
