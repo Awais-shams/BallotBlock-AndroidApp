@@ -6,4 +6,77 @@
     android:layout_height="match_parent"
     tools:context=".navigation.FAQ">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/myToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleMarginStart="100dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/themePrimary" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <TextView
+        android:id="@+id/faqHeadingTxt"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@color/themeBackground"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="@string/frequently_asked_questions"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+    <Button
+        android:id="@+id/faq1"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="88dp"
+        android:text="@string/what_are_elections"
+        android:onClick="FAQ1"
+        android:textColor="@color/themePrimary"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/faqHeadingTxt" />
+
+    <Button
+        android:id="@+id/faq2"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="168dp"
+        android:text="@string/what_is_voting"
+        android:onClick="FAQ2"
+        android:textColor="@color/themePrimary"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/faq1" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

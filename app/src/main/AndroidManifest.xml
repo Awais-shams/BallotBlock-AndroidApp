@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BallotBlock">
         <activity
+            android:name=".navigation.FAQShow"
+            android:exported="false" />
+        <activity
             android:name=".navigation.FAQ"
             android:exported="true">
             <intent-filter>

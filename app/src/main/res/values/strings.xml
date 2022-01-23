@@ -50,4 +50,7 @@
     <string name="browse">Browse</string>
     <string name="show_data">Show Data</string>
     <string name="vote_now">Vote Now</string>
+    <string name="frequently_asked_questions">Frequently Asked Questions</string>
+    <string name="what_are_elections">What are Elections?</string>
+    <string name="what_is_voting">What is Voting?</string>
 </resources>
