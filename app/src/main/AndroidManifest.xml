@@ -11,7 +11,8 @@
         android:theme="@style/Theme.BallotBlock">
         <activity
             android:name=".navigation.ElectionType"
-            android:exported="true">
+            android:exported="true"
+            android:parentActivityName=".navigation.HomeScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
