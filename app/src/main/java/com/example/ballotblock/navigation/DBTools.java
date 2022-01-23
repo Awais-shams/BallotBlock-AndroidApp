@@ -40,7 +40,7 @@ public class DBTools extends SQLiteOpenHelper {
 
     }
 
-    public void addNewCandidate(HashMap<String, String> contact) {
+    public void addNewCandidate(HashMap<String, String> candidate) {
 //        For Writing into DB
 //        here db has rights for writing to DB
         SQLiteDatabase db = getWritableDatabase();
@@ -48,12 +48,12 @@ public class DBTools extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
 //        Insert Column/Field Names here
 //        DB understands contentValues format and not hashMap format
-        contentValues.put("_id", contact.get("_id"));
-        contentValues.put("name", contact.get("firstName"));
-        contentValues.put("electionType", contact.get("lastName"));
-        contentValues.put("designation", contact.get("phoneNumber"));
-        contentValues.put("votingEndTime", contact.get("emailAddress"));
-        contentValues.put("status", contact.get("homeAddress"));
+        contentValues.put("_id", candidate.get("_id"));
+        contentValues.put("name", candidate.get("name"));
+        contentValues.put("electionType", candidate.get("electionType"));
+        contentValues.put("designation", candidate.get("designation"));
+        contentValues.put("votingEndTime", candidate.get("votingEndTime"));
+        contentValues.put("status", candidate.get("status"));
 
         long i = db.insert("CANDIDATES", null, contentValues);
         if (i != 1) {
@@ -69,59 +69,59 @@ public class DBTools extends SQLiteOpenHelper {
     }
 
     //    Function to populate list from data in db, return type is ArrayList
-    public ArrayList<HashMap<String, String>> getAllContacts() {
+    public ArrayList<HashMap<String, String>> getAllCandidates() {
 //        create object to read data from db
         SQLiteDatabase db = getReadableDatabase();
-        ArrayList<HashMap<String, String>> contactList = new ArrayList<HashMap<String, String>>();
+        ArrayList<HashMap<String, String>> candidateList = new ArrayList<HashMap<String, String>>();
 
-        String query = "SELECT * FROM CONTACTS ORDER BY firstName DESC;";
+        String query = "SELECT * FROM CANDIDATES ORDER BY _id ASC;";
 //        Cursor will execute this query
         Cursor cursor = db.rawQuery(query, null);
 //        moveToFirst means DB is not empty
         if (cursor.moveToFirst()) {
             do {
 //                Declare HashMap in loop to avoid duplication
-                HashMap<String, String> contact = new HashMap<String, String>();
-                contact.put("_id", cursor.getString(0));
-                contact.put("firstName", cursor.getString(1));
-                contact.put("lastName", cursor.getString(2));
-                contact.put("phoneNumber", cursor.getString(3));
-                contact.put("emailAddress", cursor.getString(4));
-                contact.put("homeAddress", cursor.getString(5));
-//                now add hashmap(contact) to ArrayList(contactList)
-                contactList.add(contact);
+                HashMap<String, String> candidate = new HashMap<String, String>();
+                candidate.put("_id", cursor.getString(0));
+                candidate.put("name", cursor.getString(1));
+                candidate.put("electionType", cursor.getString(2));
+                candidate.put("designation", cursor.getString(3));
+                candidate.put("votingEndTime", cursor.getString(4));
+                candidate.put("status", cursor.getString(5));
+//                now add hashmap(candidate) to ArrayList(candidateList)
+                candidateList.add(candidate);
             }while (cursor.moveToNext());
         }
         db.close();
-        return contactList;
+        return candidateList;
     }
 
     //    create function to get 1 record for editing
     public HashMap<String, String> getSingleRecord(String id) {
         SQLiteDatabase db = getReadableDatabase();
         HashMap<String, String> singleRecord = new HashMap<String, String>();
-        String query = "SELECT * FROM CONTACTS WHERE _id = '" + id + "';";
+        String query = "SELECT * FROM CANDIDATES WHERE _id = '" + id + "';";
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst()) {
             singleRecord.put("_id", cursor.getString(0));
-            singleRecord.put("firstName", cursor.getString(1));
-            singleRecord.put("lastName", cursor.getString(2));
-            singleRecord.put("phoneNumber", cursor.getString(3));
-            singleRecord.put("emailAddress", cursor.getString(4));
-            singleRecord.put("homeAddress", cursor.getString(5));
+            singleRecord.put("name", cursor.getString(1));
+            singleRecord.put("electionType", cursor.getString(2));
+            singleRecord.put("designation", cursor.getString(3));
+            singleRecord.put("votingEndTime", cursor.getString(4));
+            singleRecord.put("status", cursor.getString(5));
         }
         return singleRecord;
     }
 
     public void DeleteRecord (String id){
         SQLiteDatabase db = getWritableDatabase();
-        db.delete("CONTACTS","_id = '" + id + "'" ,null);
+        db.delete("CANDIDATES","_id = '" + id + "'" ,null);
         db.close();
     }
 
     public void UpdateRecord (String id, ContentValues contentValues){
         SQLiteDatabase db = getWritableDatabase();
-        db.update("CONTACTS", contentValues,"_id = '" + id + "'" ,null);
+        db.update("CANDIDATES", contentValues,"_id = '" + id + "'" ,null);
         db.close();
     }
 }
