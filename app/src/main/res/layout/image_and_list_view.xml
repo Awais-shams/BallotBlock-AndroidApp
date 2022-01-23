@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:background="@color/themeBackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        app:cardElevation="10dp"
+        app:cardCornerRadius="20dp"
+        android:paddingBottom="5dp"
+        android:layout_marginBottom="5dp"
+        app:cardBackgroundColor="@color/themeBackground"
+        android:layout_width="match_parent"
+        android:layout_height="390dp" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/candidateNameVote"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@drawable/custom_election_header"
+                android:editable="false"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/candidate_name"
+                android:importantForAutofill="no"
+                android:inputType="none"
+                android:padding="20dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/electionTypeTextViewCDVote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/election_type"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/candidateNameVote" />
+
+            <TextView
+                android:id="@+id/electionTypeInputTextViewCDVote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="72dp"
+                android:hint="@string/election_type_will_appear_here"
+                android:textColor="@android:color/holo_red_dark"
+                android:textColorHint="@android:color/holo_red_dark"
+                app:layout_constraintBottom_toBottomOf="@+id/electionTypeTextViewCDVote"
+                app:layout_constraintStart_toEndOf="@+id/electionTypeTextViewCDVote"
+                app:layout_constraintTop_toTopOf="@+id/electionTypeTextViewCDVote"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/designationTextViewCDVote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/designation"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/electionTypeInputTextViewCDVote" />
+
+            <TextView
+                android:id="@+id/designationInputTextViewCDVote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="76dp"
+                android:hint="@string/designation_will_appear_here"
+                android:textColor="@android:color/holo_red_dark"
+                android:textColorHint="@android:color/holo_red_dark"
+                app:layout_constraintBottom_toBottomOf="@+id/designationTextViewCDVote"
+                app:layout_constraintStart_toEndOf="@+id/designationTextViewCDVote"
+                app:layout_constraintTop_toTopOf="@+id/designationTextViewCDVote"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/votingEndTimeTextViewETVote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/voting_end_time"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/designationInputTextViewCDVote" />
+
+            <TextView
+                android:id="@+id/votingEndTimeInputTextViewETVote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:hint="@string/voting_end_time_will_appear_here"
+                android:textColor="@android:color/holo_red_dark"
+                android:textColorHint="@android:color/holo_red_dark"
+                app:layout_constraintBottom_toBottomOf="@+id/votingEndTimeTextViewETVote"
+                app:layout_constraintStart_toEndOf="@+id/votingEndTimeTextViewETVote"
+                app:layout_constraintTop_toTopOf="@+id/votingEndTimeTextViewETVote"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+            <Button
+                android:id="@+id/VoteBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/vote_now"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.473"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewVote" />
+
+            <ImageView
+                android:id="@+id/imageViewVote"
+                android:layout_width="192dp"
+                android:layout_height="141dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.493"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/votingEndTimeTextViewETVote"
+                tools:srcCompat="@tools:sample/avatars" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
