@@ -11,23 +11,27 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.ballotblock.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class Register3 extends AppCompatActivity {
     Toolbar toolbar;
-    Bitmap bitmap;
+    public Bitmap bitmap;
     ImageView imageView;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +44,16 @@ public class Register3 extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         imageView = findViewById(R.id.uploadImg);
+
+        sharedPreferences = getSharedPreferences("MyFile",0);
     }
 
     public void browseImage(View view) {
         Request_Permission();
-
     }
 
     public void Request_Permission() {
         ActivityCompat.requestPermissions(this, new String[]{READ_EXTERNAL_STORAGE}, 101);
-
     }
 
     @Override
@@ -83,6 +87,17 @@ public class Register3 extends AppCompatActivity {
                 }
                 bitmap = BitmapFactory.decodeStream(inputStream);
                 imageView.setImageBitmap(bitmap);
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object
+                byte[] b = baos.toByteArray();
+                String encoded = Base64.encodeToString(b, Base64.DEFAULT);
+
+                //      Saving First Activity "Intent" Data to sharedPreferences
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("K8", encoded);
+                editor.apply();
+
             }
             catch (FileNotFoundException e)
             {
@@ -93,5 +108,11 @@ public class Register3 extends AppCompatActivity {
 
     public void Finish(View view) {
 
+
+    }
+
+    public void showData(View view) {
+        Intent intent3 = new Intent(this, ShowData.class);
+        startActivity(intent3);
     }
 }

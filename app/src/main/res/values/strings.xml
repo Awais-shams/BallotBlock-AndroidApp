@@ -45,4 +45,9 @@
     <string name="add_candidate">Add Candidate</string>
     <string name="update">Update</string>
     <string name="delete">Delete</string>
+    <string name="shared_preferences_stored_data">Shared Preferences Stored Data</string>
+    <string name="lets_finish">Lets Finish...</string>
+    <string name="upload_id_proof">Upload ID Proof</string>
+    <string name="browse">Browse</string>
+    <string name="show_data">Show Data</string>
 </resources>
