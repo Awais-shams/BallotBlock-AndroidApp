@@ -3,13 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
 
     <androidx.cardview.widget.CardView
         app:cardElevation="10dp"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="20dp"
+        android:paddingBottom="20dp"
         app:cardBackgroundColor="@color/themeBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
@@ -50,12 +55,12 @@
                 android:id="@+id/electionDateInputTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="72dp"
                 android:hint="@string/election_date_will_appear_here"
                 android:textColor="@android:color/holo_red_dark"
                 android:textColorHint="@android:color/holo_red_dark"
                 app:layout_constraintBottom_toBottomOf="@+id/electionDateTextView"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/electionDateTextView"
                 app:layout_constraintTop_toTopOf="@+id/electionDateTextView"
                 app:layout_constraintVertical_bias="0.0" />
 
@@ -74,12 +79,12 @@
                 android:id="@+id/votingStartTimeInputTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="44dp"
                 android:hint="@string/voting_start_time_will_appear_here"
                 android:textColor="@android:color/holo_red_dark"
                 android:textColorHint="@android:color/holo_red_dark"
                 app:layout_constraintBottom_toBottomOf="@+id/votingStartTimeTextView"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/votingStartTimeTextView"
                 app:layout_constraintTop_toTopOf="@+id/votingStartTimeTextView"
                 app:layout_constraintVertical_bias="0.0" />
 
@@ -98,12 +103,12 @@
                 android:id="@+id/votingEndTimeInputTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="52dp"
                 android:hint="@string/voting_end_time_will_appear_here"
                 android:textColor="@android:color/holo_red_dark"
                 android:textColorHint="@android:color/holo_red_dark"
                 app:layout_constraintBottom_toBottomOf="@+id/votingEndTimeTextView"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/votingEndTimeTextView"
                 app:layout_constraintTop_toTopOf="@+id/votingEndTimeTextView"
                 app:layout_constraintVertical_bias="0.0" />
 
