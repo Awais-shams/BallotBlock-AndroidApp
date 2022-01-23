@@ -35,4 +35,9 @@
     <string name="voting_start_time">Voting Start Time:</string>
     <string name="voting_end_time">Voting End Time:</string>
     <string name="designation_will_appear_here">[Designation will appear here]</string>
+    <string name="candidate_name">Candidate Name</string>
+    <string name="election_type_will_appear_here">Election Type will appear here</string>
+    <string name="designation">Designation:</string>
+    <string name="election_type">Election Type</string>
+    <string name="status_will_appear_here">Status will appear here</string>
 </resources>

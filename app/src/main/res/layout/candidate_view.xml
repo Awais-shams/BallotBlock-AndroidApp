@@ -19,19 +19,20 @@
         android:layout_marginBottom="5dp"
         app:cardBackgroundColor="@color/themeBackground"
         android:layout_width="match_parent"
-        android:layout_height="320dp" >
+        android:layout_height="260dp" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <EditText
-                android:id="@+id/electionHeader"
+                android:id="@+id/candidateName"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:background="@drawable/custom_election_header"
                 android:ems="10"
-                android:hint="@string/election_type"
+                android:gravity="center"
+                android:hint="@string/candidate_name"
                 android:padding="20dp"
                 android:textColor="@color/white"
                 android:inputType="textPersonName"
@@ -43,55 +44,55 @@
                 android:importantForAutofill="no" />
 
             <TextView
-                android:id="@+id/electionDateTextView"
+                android:id="@+id/electionTypeTextViewCD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="12dp"
-                android:text="@string/election_date"
+                android:text="@string/election_type"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/electionHeader" />
+                app:layout_constraintTop_toBottomOf="@+id/candidateName" />
 
             <TextView
-                android:id="@+id/electionDateInputTextView"
+                android:id="@+id/electionTypeInputTextViewCD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="72dp"
-                android:hint="@string/election_date_will_appear_here"
+                android:hint="@string/election_type_will_appear_here"
                 android:textColor="@android:color/holo_red_dark"
                 android:textColorHint="@android:color/holo_red_dark"
-                app:layout_constraintBottom_toBottomOf="@+id/electionDateTextView"
-                app:layout_constraintStart_toEndOf="@+id/electionDateTextView"
-                app:layout_constraintTop_toTopOf="@+id/electionDateTextView"
+                app:layout_constraintBottom_toBottomOf="@+id/electionTypeTextViewCD"
+                app:layout_constraintStart_toEndOf="@+id/electionTypeTextViewCD"
+                app:layout_constraintTop_toTopOf="@+id/electionTypeTextViewCD"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/votingStartTimeTextView"
+                android:id="@+id/designationTextViewCD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="12dp"
-                android:text="@string/voting_start_time"
+                android:text="@string/designation"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/electionDateTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/electionTypeInputTextViewCD" />
 
             <TextView
-                android:id="@+id/votingStartTimeInputTextView"
+                android:id="@+id/designationInputTextViewCD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="44dp"
-                android:hint="@string/voting_start_time_will_appear_here"
+                android:layout_marginStart="76dp"
+                android:hint="@string/designation_will_appear_here"
                 android:textColor="@android:color/holo_red_dark"
                 android:textColorHint="@android:color/holo_red_dark"
-                app:layout_constraintBottom_toBottomOf="@+id/votingStartTimeTextView"
-                app:layout_constraintStart_toEndOf="@+id/votingStartTimeTextView"
-                app:layout_constraintTop_toTopOf="@+id/votingStartTimeTextView"
+                app:layout_constraintBottom_toBottomOf="@+id/designationTextViewCD"
+                app:layout_constraintStart_toEndOf="@+id/designationTextViewCD"
+                app:layout_constraintTop_toTopOf="@+id/designationTextViewCD"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/votingEndTimeTextView"
+                android:id="@+id/partyTextViewCD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
@@ -99,64 +100,39 @@
                 android:text="@string/voting_end_time"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/votingStartTimeTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/designationInputTextViewCD" />
 
             <TextView
-                android:id="@+id/votingEndTimeInputTextView"
+                android:id="@+id/partyInputTextViewCD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="52dp"
+                android:layout_marginStart="48dp"
                 android:hint="@string/voting_end_time_will_appear_here"
                 android:textColor="@android:color/holo_red_dark"
                 android:textColorHint="@android:color/holo_red_dark"
-                app:layout_constraintBottom_toBottomOf="@+id/votingEndTimeTextView"
-                app:layout_constraintStart_toEndOf="@+id/votingEndTimeTextView"
-                app:layout_constraintTop_toTopOf="@+id/votingEndTimeTextView"
+                app:layout_constraintBottom_toBottomOf="@+id/partyTextViewCD"
+                app:layout_constraintStart_toEndOf="@+id/partyTextViewCD"
+                app:layout_constraintTop_toTopOf="@+id/partyTextViewCD"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="20dp"
-                android:background="@android:color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/votingEndTimeTextView" />
-
-            <TextView
-                android:id="@+id/designatinationsTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/designations"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view" />
-
             <EditText
-                android:id="@+id/designationsEditText"
+                android:id="@+id/statusEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:layout_margin="20dp"
-                android:layout_marginTop="12dp"
                 android:background="@drawable/custom_designation_text_field"
                 android:ems="10"
-                android:hint="@string/designation_will_appear_here"
-                android:padding="10dp"
+                android:hint="@string/status_will_appear_here"
+                android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
+                android:padding="10dp"
                 android:textColor="@android:color/holo_red_dark"
                 android:textColorHint="@android:color/holo_red_dark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/designatinationsTextView"
-                android:importantForAutofill="no" />
+                app:layout_constraintTop_toBottomOf="@+id/partyTextViewCD" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

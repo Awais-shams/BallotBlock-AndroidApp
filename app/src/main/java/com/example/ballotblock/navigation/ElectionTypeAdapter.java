@@ -37,6 +37,7 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
         holder.electionDate.setText(model.getElectionDate());
         holder.electionStartTime.setText(model.getElectionStartTime());
         holder.electionEndTime.setText(model.getElectionEndTime());
+        holder.electionDesignation.setText(model.getElectionDesignation());
 
     }
 
@@ -50,6 +51,7 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
         public TextView electionDate;
         public TextView electionStartTime;
         public TextView electionEndTime;
+        public EditText electionDesignation;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -58,7 +60,7 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
             electionDate = itemView.findViewById(R.id.electionDateInputTextView);
             electionStartTime = itemView.findViewById(R.id.votingStartTimeInputTextView);
             electionEndTime = itemView.findViewById(R.id.votingEndTimeInputTextView);
-
+            electionDesignation = itemView.findViewById(R.id.designationsEditText);
         }
     }
 }

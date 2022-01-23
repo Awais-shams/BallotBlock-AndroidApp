@@ -60,6 +60,7 @@ public class ElectionType extends AppCompatActivity {
                     student_record.setElectionDate(snapshot.child("Date").getValue().toString());
                     student_record.setElectionStartTime(snapshot.child("StartTime").getValue().toString());
                     student_record.setElectionEndTime(snapshot.child("EndTime").getValue().toString());
+                    student_record.setElectionDesignation(snapshot.child("Designation").getValue().toString());
 
                     myList.add(student_record);
                 }
