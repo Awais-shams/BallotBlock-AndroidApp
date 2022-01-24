@@ -53,4 +53,6 @@
     <string name="frequently_asked_questions">Frequently Asked Questions</string>
     <string name="what_are_elections">What are Elections?</string>
     <string name="what_is_voting">What is Voting?</string>
+    <string name="play_pause">Play/Pause</string>
+    <string name="stop">Stop</string>
 </resources>

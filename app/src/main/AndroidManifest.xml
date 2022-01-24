@@ -13,6 +13,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BallotBlock">
         <activity
+            android:name=".navigation.MyBoundService"
+            android:exported="false" />
+        <service
+            android:name=".navigation.MyBoundService"
+            android:enabled="true"
+            android:exported="true" />
+        <activity
+            android:name=".navigation.Relax"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".navigation.FAQShow"
             android:exported="false" />
         <activity
