@@ -55,4 +55,12 @@
     <string name="what_is_voting">What is Voting?</string>
     <string name="play_pause">Play/Pause</string>
     <string name="stop">Stop</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="count_will_appear_here">Count will Appear Here</string>
+    <string name="maps">Maps</string>
+    <string name="airplane_mode_broadcast">Airplane Mode Broadcast</string>
+    <string name="candidate_list">Candidate List</string>
+    <string name="vote">Vote</string>
+    <string name="app_visit_count">App Visit Count</string>
+    <string name="music_to_relax">Music to Relax</string>
 </resources>

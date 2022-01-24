@@ -31,28 +31,65 @@ public class Home extends Fragment {
         votenow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.frameLayout, vn).commit();
+                Intent intent = new Intent(getActivity(), Vote.class);
+                startActivity(intent);
             }
         });
 
-        Button candidate = (Button) view.findViewById(R.id.Candidates_btn);
+        Button candidate = (Button) view.findViewById(R.id.appVisitCountBtn);
         candidate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.frameLayout, cad).commit();
+//                FragmentManager fragmentManager = getFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.frameLayout, cad).commit();
+                Intent intent = new Intent(getActivity(), AppVisitCount.class);
+                startActivity(intent);
             }
         });
-        Button userprofile = (Button) view.findViewById(R.id.Profile_btn);
+        Button userprofile = (Button) view.findViewById(R.id.faqBtn);
         userprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.frameLayout, profile).commit();
+                Intent intent = new Intent(getActivity(), FAQ.class);
+                startActivity(intent);
+            }
+        });
+
+
+        Button election = (Button) view.findViewById(R.id.Election_type_btn);
+        election.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ElectionType.class);
+                startActivity(intent);
+            }
+        });
+
+        Button list = (Button) view.findViewById(R.id.Candidate_list_btn);
+        list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CandidatesList.class);
+                startActivity(intent);
+            }
+        });
+
+        Button relax = (Button) view.findViewById(R.id.relaxBtn);
+        relax.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Relax.class);
+                startActivity(intent);
+            }
+        });
+
+        Button broadcast = (Button) view.findViewById(R.id.broadcastBtn);
+        broadcast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AirplaneModeMainActivity.class);
+                startActivity(intent);
             }
         });
         return view;

@@ -24,6 +24,10 @@ public class HomeScreen extends AppCompatActivity implements NavigationBarView.O
         VoteNow vn = new VoteNow();
         Candidate cad = new Candidate();
         Main_Profile profile= new Main_Profile();
+        MapsFragment mapsFragment = new MapsFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, home).commit();
+        Toast.makeText(getApplicationContext(), "Home page", Toast.LENGTH_SHORT).show();
+        Log.d("TAG", "onNavigationItemSelected: Home Page");
         btmView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -48,6 +52,11 @@ public class HomeScreen extends AppCompatActivity implements NavigationBarView.O
                         Toast.makeText(getApplicationContext(), "Profile", Toast.LENGTH_SHORT).show();
                         Log.d("TAG", "onNavigationItemSelected: Profile");
                         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, profile).commit();
+                        return true;
+                    case R.id.Map:
+                        Toast.makeText(getApplicationContext(), "Map", Toast.LENGTH_SHORT).show();
+                        Log.d("TAG", "onNavigationItemSelected: Map");
+                        getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, mapsFragment).commit();
                         return true;
                 }
                 return false;
