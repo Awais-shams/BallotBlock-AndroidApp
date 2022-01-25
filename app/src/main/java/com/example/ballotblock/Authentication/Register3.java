@@ -22,16 +22,26 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.ballotblock.R;
+import com.example.ballotblock.RestAPI.MyRESTAPIModel;
+import com.example.ballotblock.RestAPI.MyRetrofit;
+import com.example.ballotblock.RestAPI.MyRetrofitInterface;
+import com.example.ballotblock.RestAPI.RegisterVoterModel;
+import com.example.ballotblock.navigation.HomeScreen;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Register3 extends AppCompatActivity {
     Toolbar toolbar;
     public Bitmap bitmap;
     ImageView imageView;
     SharedPreferences sharedPreferences;
+    MyRetrofitInterface apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +54,8 @@ public class Register3 extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         imageView = findViewById(R.id.uploadImg);
+
+        apiInterface = MyRetrofit.getRetrofit().create(MyRetrofitInterface.class);
 
         sharedPreferences = getSharedPreferences("MyFile",0);
     }
@@ -68,7 +80,6 @@ public class Register3 extends AppCompatActivity {
             intent.setAction(Intent.ACTION_GET_CONTENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             startActivityForResult(intent,101);
-
         }
     }
 
@@ -92,12 +103,6 @@ public class Register3 extends AppCompatActivity {
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object
                 byte[] b = baos.toByteArray();
                 String encoded = Base64.encodeToString(b, Base64.DEFAULT);
-
-                //      Saving First Activity "Intent" Data to sharedPreferences
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("K8", encoded);
-                editor.apply();
-
             }
             catch (FileNotFoundException e)
             {
@@ -107,13 +112,50 @@ public class Register3 extends AppCompatActivity {
     }
 
     public void Finish(View view) {
-        Intent intent3 = new Intent(this, LoginScreen.class);
-        startActivity(intent3);
+        if(bitmap==null)
+        {
+            Toast.makeText(Register3.this, "ID Proof Image is Required!", Toast.LENGTH_LONG).show();
+            return;
+        }
 
+        createUser();
     }
 
-    public void showData(View view) {
-        Intent intent3 = new Intent(this, ShowData.class);
-        startActivity(intent3);
+    public void createUser() {
+        String newEmail = sharedPreferences.getString("K1","");
+        String newPass = sharedPreferences.getString("K2","");
+
+        String fName = sharedPreferences.getString("K3","");
+        String lName = sharedPreferences.getString("K4","");
+        String cnic = sharedPreferences.getString("K5","");
+        String dob = sharedPreferences.getString("K6","");
+        String address = sharedPreferences.getString("K7","");
+
+        RegisterVoterModel cred = new RegisterVoterModel(fName, lName, newEmail, newPass, dob, cnic, address);
+        apiInterface.getCredentials(cred);
+        Call<RegisterVoterModel> myPost = apiInterface.getCredentials(cred);
+        myPost.enqueue(new Callback<RegisterVoterModel>() {
+            @Override
+            public void onResponse(Call<RegisterVoterModel> call, Response<RegisterVoterModel> response) {
+                if (response.isSuccessful()) {
+                    if(response.body() != null) {
+                        Toast.makeText(Register3.this, "Voter Registered...", Toast.LENGTH_SHORT).show();
+                        Intent intent3 = new Intent(Register3.this, LoginScreen.class);
+                        startActivity(intent3);
+                    }
+                    else {
+                        Toast.makeText(Register3.this, "Error.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    Toast.makeText(Register3.this, "Error.", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<RegisterVoterModel> call, Throwable t) {
+                Toast.makeText(Register3.this, "Error in fetching API!!!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
 }

@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 
@@ -32,8 +33,33 @@ public class Register1 extends AppCompatActivity {
     }
 
     public void GoToNext(View view) {
-        String newEmail = email.getText().toString();
-        String newPass = pass.getText().toString();
+        String newEmail = email.getText().toString().trim();
+        String newPass = pass.getText().toString().trim();
+
+        if (newEmail.isEmpty())
+        {
+            email.setError("Email is Required!");
+            email.requestFocus();
+            return;
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(newEmail).matches())
+        {
+            email.setError("Please enter valid email!");
+            email.requestFocus();
+            return;
+        }
+        if(newPass.isEmpty())
+        {
+            pass.setError("Password is Required!");
+            pass.requestFocus();
+            return;
+        }
+        if(newPass.length() < 6)
+        {
+            pass.setError("Min password length should be 6 character!");
+            pass.requestFocus();
+            return;
+        }
 
         Intent intent = new Intent(this, Register2.class);
         intent.putExtra("newEmail", newEmail);

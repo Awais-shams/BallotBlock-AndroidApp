@@ -63,4 +63,6 @@
     <string name="vote">Vote</string>
     <string name="app_visit_count">App Visit Count</string>
     <string name="music_to_relax">Music to Relax</string>
+    <string name="enter_first_name">Enter First Name</string>
+    <string name="enter_last_name">Enter Last Name</string>
 </resources>

@@ -68,23 +68,23 @@ public class MapsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         apiInterface = MyRetrofit.getRetrofit().create(MyRetrofitInterface.class);
-        apiInterface.getdata().enqueue(new Callback<MyRESTAPIModel>() {
-            @Override
-            public void onResponse(Call<MyRESTAPIModel> call, Response<MyRESTAPIModel> response) {
-                if(response.body() != null){
-                    Data = response.body();
-                    Toast.makeText(getActivity(), "Data Retieved", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(getActivity(), "List is Empty", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MyRESTAPIModel> call, Throwable t) {
-
-            }
-        });
+//        apiInterface.getdata().enqueue(new Callback<MyRESTAPIModel>() {
+//            @Override
+//            public void onResponse(Call<MyRESTAPIModel> call, Response<MyRESTAPIModel> response) {
+//                if(response.body() != null){
+//                    Data = response.body();
+//                    Toast.makeText(getActivity(), "Data Retieved", Toast.LENGTH_SHORT).show();
+//                }
+//                else{
+//                    Toast.makeText(getActivity(), "List is Empty", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<MyRESTAPIModel> call, Throwable t) {
+//
+//            }
+//        });
 
         return inflater.inflate(R.layout.fragment_maps, container, false);
     }
