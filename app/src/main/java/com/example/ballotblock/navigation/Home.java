@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.ballotblock.Authentication.LoginScreen;
 import com.example.ballotblock.R;
 
 public class Home extends Fragment {
@@ -47,15 +48,22 @@ public class Home extends Fragment {
             }
         });
 
-        Button userprofile = (Button) view.findViewById(R.id.faqBtn);
-        userprofile.setOnClickListener(new View.OnClickListener() {
+        Button faqButton = (Button) view.findViewById(R.id.faqBtn);
+        faqButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), FAQ.class);
                 startActivity(intent);
             }
         });
-
+        Button logoutBtn = (Button) view.findViewById(R.id.logoutBtn);
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), LoginScreen.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

@@ -8,7 +8,6 @@ public class MyRetrofit {
     public static String uRL = "http://192.168.115.28:3000";
 
     public static Retrofit getRetrofit() {
-
         if(retrofit == null){
             retrofit = new Retrofit.Builder().baseUrl(uRL).addConverterFactory(GsonConverterFactory.create()).build();
         }
