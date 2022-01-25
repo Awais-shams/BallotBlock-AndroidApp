@@ -92,4 +92,9 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         super.finalize();
         FirebaseAuth.getInstance().signOut();
     }
+
+    public void forgotPass(View view) {
+        Intent intent = new Intent(LoginScreen.this, ForgotPassword.class);
+        startActivity(intent);
+    }
 }

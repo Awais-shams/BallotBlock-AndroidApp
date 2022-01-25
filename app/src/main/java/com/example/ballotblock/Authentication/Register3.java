@@ -107,7 +107,8 @@ public class Register3 extends AppCompatActivity {
     }
 
     public void Finish(View view) {
-
+        Intent intent3 = new Intent(this, LoginScreen.class);
+        startActivity(intent3);
 
     }
 

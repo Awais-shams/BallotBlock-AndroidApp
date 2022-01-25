@@ -73,6 +73,7 @@
         android:layout_marginTop="112dp"
         android:background="@drawable/custom_button"
         android:text="@string/forgot_password"
+        android:onClick="forgotPass"
         android:textAllCaps="false"
         android:textColor="@color/themePrimary"
         android:textSize="20sp"
