@@ -18,7 +18,7 @@
         android:layout_marginBottom="5dp"
         app:cardBackgroundColor="@color/themeBackground"
         android:layout_width="match_parent"
-        android:layout_height="390dp" >
+        android:layout_height="410dp" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -44,77 +44,113 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/electionTypeTextViewCDVote"
+                android:id="@+id/emailTextViewCDVote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
-                android:text="@string/election_type"
+                android:text="Email:"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/candidateNameVote" />
 
             <TextView
-                android:id="@+id/electionTypeInputTextViewCDVote"
+                android:id="@+id/emailInputTextViewCDVote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="72dp"
-                android:hint="@string/election_type_will_appear_here"
+                android:layout_marginStart="112dp"
+                android:hint="[Candidate's Email will appear here]"
                 android:textColor="@android:color/holo_red_dark"
                 android:textColorHint="@android:color/holo_red_dark"
-                app:layout_constraintBottom_toBottomOf="@+id/electionTypeTextViewCDVote"
-                app:layout_constraintStart_toEndOf="@+id/electionTypeTextViewCDVote"
-                app:layout_constraintTop_toTopOf="@+id/electionTypeTextViewCDVote"
+                app:layout_constraintBottom_toBottomOf="@+id/emailTextViewCDVote"
+                app:layout_constraintStart_toEndOf="@+id/emailTextViewCDVote"
+                app:layout_constraintTop_toTopOf="@+id/emailTextViewCDVote"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/designationTextViewCDVote"
+                android:id="@+id/cnicTextViewCDVote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
-                android:text="@string/designation"
+                android:text="CNIC:"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/electionTypeInputTextViewCDVote" />
+                app:layout_constraintTop_toBottomOf="@+id/emailInputTextViewCDVote" />
+
 
             <TextView
-                android:id="@+id/designationInputTextViewCDVote"
+                android:id="@+id/cnicInputTextViewCDVote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="76dp"
-                android:hint="@string/designation_will_appear_here"
+                android:layout_marginStart="116dp"
+                android:hint="[CNIC will appear here]"
                 android:textColor="@android:color/holo_red_dark"
                 android:textColorHint="@android:color/holo_red_dark"
-                app:layout_constraintBottom_toBottomOf="@+id/designationTextViewCDVote"
-                app:layout_constraintStart_toEndOf="@+id/designationTextViewCDVote"
-                app:layout_constraintTop_toTopOf="@+id/designationTextViewCDVote"
+                app:layout_constraintBottom_toBottomOf="@+id/cnicTextViewCDVote"
+                app:layout_constraintStart_toEndOf="@+id/cnicTextViewCDVote"
+                app:layout_constraintTop_toTopOf="@+id/cnicTextViewCDVote"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/votingEndTimeTextViewETVote"
+                android:id="@+id/permanentAddTextViewETVote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
-                android:text="@string/voting_end_time"
+                android:text="Permanent Address:"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/designationInputTextViewCDVote" />
+                app:layout_constraintTop_toBottomOf="@+id/cnicInputTextViewCDVote" />
 
             <TextView
-                android:id="@+id/votingEndTimeInputTextViewETVote"
+                android:id="@+id/permanentAddInputTextViewETVote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="48dp"
-                android:hint="@string/voting_end_time_will_appear_here"
+                android:layout_marginStart="24dp"
+                android:hint="[Permanent Address]"
                 android:textColor="@android:color/holo_red_dark"
                 android:textColorHint="@android:color/holo_red_dark"
-                app:layout_constraintBottom_toBottomOf="@+id/votingEndTimeTextViewETVote"
-                app:layout_constraintStart_toEndOf="@+id/votingEndTimeTextViewETVote"
-                app:layout_constraintTop_toTopOf="@+id/votingEndTimeTextViewETVote"
+                app:layout_constraintBottom_toBottomOf="@+id/permanentAddTextViewETVote"
+                app:layout_constraintStart_toEndOf="@+id/permanentAddTextViewETVote"
+                app:layout_constraintTop_toTopOf="@+id/permanentAddTextViewETVote"
                 app:layout_constraintVertical_bias="0.0" />
 
+            <TextView
+                android:id="@+id/ethAddressTextViewETVote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="Ethereum Address:"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/permanentAddInputTextViewETVote" />
+
+
+            <TextView
+                android:id="@+id/ethAddressInputTextViewETVote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:hint="[Ethereum Public Address]"
+                android:textColor="@android:color/holo_red_dark"
+                android:textColorHint="@android:color/holo_red_dark"
+                app:layout_constraintBottom_toBottomOf="@+id/ethAddressTextViewETVote"
+                app:layout_constraintStart_toEndOf="@+id/ethAddressTextViewETVote"
+                app:layout_constraintTop_toTopOf="@+id/ethAddressTextViewETVote"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/imageViewVote"
+                android:layout_width="192dp"
+                android:layout_height="141dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ethAddressTextViewETVote"
+                tools:srcCompat="@tools:sample/avatars" />
 
             <Button
                 android:id="@+id/VoteBtn"
@@ -127,17 +163,6 @@
                 app:layout_constraintHorizontal_bias="0.473"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageViewVote" />
-
-            <ImageView
-                android:id="@+id/imageViewVote"
-                android:layout_width="192dp"
-                android:layout_height="141dp"
-                android:layout_marginTop="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.493"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/votingEndTimeTextViewETVote"
-                tools:srcCompat="@tools:sample/avatars" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

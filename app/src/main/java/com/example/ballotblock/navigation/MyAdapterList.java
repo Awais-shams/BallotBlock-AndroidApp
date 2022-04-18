@@ -44,16 +44,16 @@ public class MyAdapterList extends ArrayAdapter<String> {
         LayoutInflater inflater = context.getLayoutInflater();
         View viewHolder = inflater.inflate(R.layout.image_and_list_view, null);
         TextView name = viewHolder.findViewById(R.id.candidateNameVote);
-        TextView electionType = viewHolder.findViewById(R.id.electionTypeInputTextViewCDVote);
-        TextView designation = viewHolder.findViewById(R.id.designationInputTextViewCDVote);
-        TextView votingEndTime = viewHolder.findViewById(R.id.votingEndTimeInputTextViewETVote);
+//        TextView electionType = viewHolder.findViewById(R.id.electionTypeInputTextViewCDVote);
+//        TextView designation = viewHolder.findViewById(R.id.designationInputTextViewCDVote);
+//        TextView votingEndTime = viewHolder.findViewById(R.id.votingEndTimeInputTextViewETVote);
         ImageView imageView = viewHolder.findViewById(R.id.imageViewVote);
         Button button = viewHolder.findViewById(R.id.VoteBtn);
 
         name.setText(Name[position]);
-        electionType.setText(ElectionType[position]);
-        designation.setText(Designation[position]);
-        votingEndTime.setText(VotingEndTime[position]);
+//        electionType.setText(ElectionType[position]);
+//        designation.setText(Designation[position]);
+//        votingEndTime.setText(VotingEndTime[position]);
         imageView.setImageResource(Image[position]);
 
         button.setOnClickListener(new View.OnClickListener() {

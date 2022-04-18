@@ -9,12 +9,10 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.ballotblock.Authentication.LoginScreen;
+import com.example.ballotblock.Pages.ElectionType;
 import com.example.ballotblock.R;
 
 public class Home extends Fragment {
@@ -26,7 +24,6 @@ public class Home extends Fragment {
 
         Main_Profile profile = new Main_Profile();
         VoteNow vn = new VoteNow();
-        Candidate cad = new Candidate();
 
         View view = inflater.inflate(R.layout.homeview, container, false);
 

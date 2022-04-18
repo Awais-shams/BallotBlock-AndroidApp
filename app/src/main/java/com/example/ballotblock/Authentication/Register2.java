@@ -53,40 +53,34 @@ public class Register2 extends AppCompatActivity {
         String address = Register2.this.edtaddress.getText().toString().trim();
 
 
-        if(fName.isEmpty())
-        {
+        if(fName.isEmpty()) {
             edtfName.setError("First Name is Required!");
             edtfName.requestFocus();
             return;
         }
-        if(!fName.matches("^[A-Za-z ]+$"))
-        {
+        if(!fName.matches("^[A-Za-z ]+$")) {
             edtfName.setError("Name should contain only Alphabet");
             edtfName.requestFocus();
             return;
         }
-        if(lName.isEmpty())
-        {
+        if(lName.isEmpty()) {
             edtlName.setError("First Name is Required!");
             edtlName.requestFocus();
             return;
         }
-        if(!lName.matches("^[A-Za-z ]+$"))
-        {
+        if(!lName.matches("^[A-Za-z ]+$")) {
             edtlName.setError("Name should contain only Alphabet");
             edtlName.requestFocus();
             return;
         }
 
-        if(cnic.isEmpty())
-        {
+        if(cnic.isEmpty()) {
             edtcnic.setError("CNIC is required!");
             edtcnic.requestFocus();
             return;
         }
 
-        if(cnic.length() != 13)
-        {
+        if(cnic.length() != 13) {
             edtcnic.setError("Length should be 13 characters without dashes !");
             edtcnic.requestFocus();
             return;
@@ -95,41 +89,38 @@ public class Register2 extends AppCompatActivity {
         Pattern pattern =
                 Pattern. compile ( "[0123456789]*" ) ;
         Matcher matcher = pattern.matcher(cnic) ;
-        boolean valid = matcher.matches() ;
+        boolean valid = matcher.matches();
 
         if (!valid) {
             edtcnic.setError("Enter valid CNIC Number without dashes!");
             edtcnic.requestFocus();
             return;
         }
-
-        if(dob.isEmpty())
-        {
+        if(dob.isEmpty()) {
             edtdob.setError("CNIC is required!");
             edtdob.requestFocus();
             return;
         }
 
-        if(dob.length() != 6)
-        {
-            edtdob.setError("Length should be 6 integer values(e.g DDMMYY) !");
-            edtdob.requestFocus();
-            return;
-        }
+//        if(dob.length() != 6)
+//        {
+//            edtdob.setError("Length should be 6 integer values(e.g DDMMYY) !");
+//            edtdob.requestFocus();
+//            return;
+//        }
+//
+//        Pattern patterndob =
+//                Pattern. compile ( "[0123456789]*" ) ;
+//        Matcher matcherdob = patterndob.matcher(cnic) ;
+//        boolean validdob = matcher.matches() ;
+//
+//        if (!validdob) {
+//            edtdob.setError("Enter valid CNIC Number!");
+//            edtdob.requestFocus();
+//            return;
+//        }
 
-        Pattern patterndob =
-                Pattern. compile ( "[0123456789]*" ) ;
-        Matcher matcherdob = patterndob.matcher(cnic) ;
-        boolean validdob = matcher.matches() ;
-
-        if (!validdob) {
-            edtdob.setError("Enter valid CNIC Number!");
-            edtdob.requestFocus();
-            return;
-        }
-
-        if(address.isEmpty())
-        {
+        if(address.isEmpty()) {
             edtaddress.setError("Address is Required!");
             edtaddress.requestFocus();
             return;

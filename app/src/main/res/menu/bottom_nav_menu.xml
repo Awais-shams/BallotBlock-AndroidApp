@@ -7,19 +7,19 @@
         android:icon="@drawable/ic_homepage"
         android:title="@string/home" />
     <item
-        android:id="@+id/now_vote"
+        android:id="@+id/election"
         android:enabled="true"
         android:icon="@drawable/ic_vote"
-        android:title="@string/vote_now"
+        android:title="@string/elections"
         />
     <item
-        android:id="@+id/Candidate"
+        android:id="@+id/wallet"
         android:enabled="true"
         android:icon="@drawable/ic_candidate"
-        android:title="@string/candidate"
+        android:title="@string/wallet"
         />
     <item
-        android:id="@+id/Profile"
+        android:id="@+id/profile"
         android:enabled="true"
         android:icon="@drawable/ic_user"
         android:title="@string/profile"

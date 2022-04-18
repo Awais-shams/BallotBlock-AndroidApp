@@ -22,7 +22,6 @@ public class HomeScreen extends AppCompatActivity implements NavigationBarView.O
         btmView = findViewById(R.id.bottomNavigation);
         Home home = new Home();
         VoteNow vn = new VoteNow();
-        Candidate cad = new Candidate();
         Main_Profile profile= new Main_Profile();
         MapsFragment mapsFragment = new MapsFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, home).commit();
@@ -38,17 +37,17 @@ public class HomeScreen extends AppCompatActivity implements NavigationBarView.O
                         Toast.makeText(getApplicationContext(), "Home page", Toast.LENGTH_SHORT).show();
                         Log.d("TAG", "onNavigationItemSelected: Home Page");
                         return true;
-                    case R.id.now_vote:
+                    case R.id.election:
                         Toast.makeText(getApplicationContext(), "Now Vote", Toast.LENGTH_SHORT).show();
                         Log.d("TAG", "onNavigationItemSelected: Now Vote");
                         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, vn).commit();
                         return true;
-                    case  R.id.Candidate:
+                    case  R.id.wallet:
                         Toast.makeText(getApplicationContext(), "Candidate", Toast.LENGTH_SHORT).show();
                         Log.d("TAG", "onNavigationItemSelected: Cadidate");
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, cad).commit();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, cad).commit();
                         return true;
-                    case R.id.Profile:
+                    case R.id.profile:
                         Toast.makeText(getApplicationContext(), "Profile", Toast.LENGTH_SHORT).show();
                         Log.d("TAG", "onNavigationItemSelected: Profile");
                         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, profile).commit();

@@ -66,4 +66,16 @@
     <string name="enter_first_name">Enter First Name</string>
     <string name="enter_last_name">Enter Last Name</string>
     <string name="logout">Logout</string>
+    <string name="wallet">Wallet</string>
+    <string name="connect_wallet">Connect Wallet</string>
+    <string name="connect">Connect</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="full_name">Full Name:</string>
+    <string name="email">Email:</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="update_password">Update Password</string>
+    <string name="election_status">Election Status</string>
+    <string name="apply_to_vote">Apply to Vote</string>
+    <string name="elections">Elections</string>
 </resources>

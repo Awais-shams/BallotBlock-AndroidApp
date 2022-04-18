@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/themeBackground"
+    tools:context=".Pages.HomePage"
+    android:textAlignment="textStart">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/myToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleMarginStart="100dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/themePrimary" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <!--    Election Type Button-->
+    <Button
+        android:id="@+id/Election_type_btn"
+        android:layout_width="330dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="60dp"
+        android:backgroundTint="@color/themePrimary"
+        android:drawableStart="@drawable/resize_ic_election"
+        android:drawablePadding="12dp"
+        android:gravity="start|center_vertical"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:text="@string/election_type"
+        android:onClick="GoToElection"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+    <!--    Vote Button-->
+    <Button
+        android:id="@+id/Vote_Now_btn"
+        android:layout_width="330dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="52dp"
+        android:backgroundTint="@color/themePrimary"
+        android:drawableStart="@drawable/resize_vote_icon"
+        android:drawablePadding="12dp"
+        android:gravity="start|center_vertical"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:text="@string/vote"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Election_type_btn" />
+
+    <!--    FAQ Button-->
+    <Button
+        android:id="@+id/faqBtn"
+        android:layout_width="330dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="52dp"
+        android:backgroundTint="@color/themePrimary"
+        android:drawableStart="@drawable/resize_profie_icon"
+        android:drawablePadding="12dp"
+        android:gravity="start|center_vertical"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:text="@string/frequently_asked_questions"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Vote_Now_btn" />
+
+    <!--    Logout Button-->
+    <Button
+        android:id="@+id/logoutBtn"
+        android:layout_width="330dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="52dp"
+        android:backgroundTint="@color/themePrimary"
+        android:drawableStart="@drawable/resize_profie_icon"
+        android:drawablePadding="12dp"
+        android:gravity="start|center_vertical"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:text="@string/logout"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/faqBtn" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

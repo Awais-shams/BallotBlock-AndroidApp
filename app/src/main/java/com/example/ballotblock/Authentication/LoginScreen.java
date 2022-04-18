@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -12,7 +13,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ballotblock.Pages.HomePage;
 import com.example.ballotblock.R;
+import com.example.ballotblock.RestAPI.AccessToken;
 import com.example.ballotblock.RestAPI.MyRESTAPIModel;
 import com.example.ballotblock.RestAPI.MyRetrofit;
 import com.example.ballotblock.RestAPI.MyRetrofitInterface;
@@ -23,7 +26,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
 
+import org.json.JSONObject;
+
+import jnr.constants.platform.Access;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +39,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     TextView signUpLink;
     EditText email, pass;
     MyRetrofitInterface apiInterface;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +53,8 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         pass = findViewById(R.id.passTxt);
 
         apiInterface = MyRetrofit.getRetrofit().create(MyRetrofitInterface.class);
+
+        sharedPreferences = getSharedPreferences("MyFile",0);
 
     }
 
@@ -83,16 +93,35 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     }
 
     public void GetCredentials(String _email, String _pass) {
+
         MyRESTAPIModel cred = new MyRESTAPIModel(_email, _pass);
-        apiInterface.getCredentials(cred);
-        Call<MyRESTAPIModel> myPost = apiInterface.getCredentials(cred);
-        myPost.enqueue(new Callback<MyRESTAPIModel>() {
+        Call<AccessToken> myPost = apiInterface.getCredentials(cred);
+        myPost.enqueue(new Callback<AccessToken>() {
             @Override
-            public void onResponse(Call<MyRESTAPIModel> call, Response<MyRESTAPIModel> response) {
+            public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
                 if (response.isSuccessful()) {
                     if(response.body() != null) {
                         Toast.makeText(LoginScreen.this, "Login Successful...", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginScreen.this, HomeScreen.class);
+//                        Log.d("tagg", "Access Token: " + response.body());
+//                        Log.d("tagg", "Access Token: " + response.message());
+//                        Log.d("tagg", "Access Token: " + response.errorBody());
+//                        Log.d("tagg", "Access Token: " + response.raw());
+                        AccessToken accessToken = response.body();
+                        Log.d("tagg", "message: " + accessToken.getMessage());
+                        Log.d("tagg", "accessToken: " + accessToken.getAccessToken());
+                        Log.d("tagg", "uuid: " + accessToken.getUuid());
+
+                        String firstPart = "access-token=";
+                        String accessTokenStr = accessToken.getAccessToken();
+                        accessTokenStr = firstPart + accessTokenStr;
+
+//                        Saving AccessToken and voterId in shared preferneces
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("accessToken", accessTokenStr);
+                        editor.putString("voterUuid", accessToken.getUuid());
+                        editor.apply();
+
+                        Intent intent = new Intent(LoginScreen.this, HomePage.class);
                         startActivity(intent);
                     }
                     else {
@@ -103,12 +132,15 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                     Toast.makeText(LoginScreen.this, "Wrong UserName Password.", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
-            public void onFailure(Call<MyRESTAPIModel> call, Throwable t) {
+            public void onFailure(Call<AccessToken> call, Throwable t) {
                 Toast.makeText(LoginScreen.this, "Error in fetching API!!!", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+//    Toast.makeText(LoginScreen.this, "Error in fetching API!!!", Toast.LENGTH_SHORT).show();
 
     @Override
     protected void onStart() {
@@ -120,7 +152,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     public void updateUI(){
         if(true) {
             Toast.makeText(this,"You Signed In successfully",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(LoginScreen.this, HomeScreen.class);
+            Intent intent = new Intent(LoginScreen.this, HomePage.class);
             startActivity(intent);
         }
         else {

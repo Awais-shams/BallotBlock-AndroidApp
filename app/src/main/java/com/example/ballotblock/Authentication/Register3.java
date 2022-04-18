@@ -1,7 +1,5 @@
 package com.example.ballotblock.Authentication;
 
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 
 import androidx.annotation.NonNull;
@@ -22,11 +20,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.ballotblock.R;
-import com.example.ballotblock.RestAPI.MyRESTAPIModel;
 import com.example.ballotblock.RestAPI.MyRetrofit;
 import com.example.ballotblock.RestAPI.MyRetrofitInterface;
 import com.example.ballotblock.RestAPI.RegisterVoterModel;
-import com.example.ballotblock.navigation.HomeScreen;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -132,8 +128,8 @@ public class Register3 extends AppCompatActivity {
         String address = sharedPreferences.getString("K7","");
 
         RegisterVoterModel cred = new RegisterVoterModel(fName, lName, newEmail, newPass, dob, cnic, address);
-        apiInterface.getCredentials(cred);
-        Call<RegisterVoterModel> myPost = apiInterface.getCredentials(cred);
+        apiInterface.registerVoter(cred);
+        Call<RegisterVoterModel> myPost = apiInterface.registerVoter(cred);
         myPost.enqueue(new Callback<RegisterVoterModel>() {
             @Override
             public void onResponse(Call<RegisterVoterModel> call, Response<RegisterVoterModel> response) {
@@ -144,11 +140,11 @@ public class Register3 extends AppCompatActivity {
                         startActivity(intent3);
                     }
                     else {
-                        Toast.makeText(Register3.this, "Error.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Register3.this, "Cannot Register Voter. API Response body is null", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
-                    Toast.makeText(Register3.this, "Error.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register3.this, "Problem in Voter Credentials format. Error in API response, response not successful.", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
