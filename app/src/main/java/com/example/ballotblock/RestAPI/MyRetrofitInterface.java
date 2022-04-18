@@ -10,6 +10,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface MyRetrofitInterface {
@@ -26,8 +27,12 @@ public interface MyRetrofitInterface {
     Call<ArrayList<ElectionModel>> getElection(@Header("Cookie") String accessToken);
 
 //    for displaying Vote Candidates cards, called in Pages/Vote
-    @GET("election")
-    Call<ArrayList<VoteCandidatesModel>> getCandidates(@Header("Cookie") String accessToken);
+//    @GET("candidate")
+//    Call<ArrayList<VoteCandidatesModel>> getCandidates(@Header("Cookie") String accessToken);
+
+//    for displaying Vote filtered Candidates cards, called in Pages/Vote
+    @GET("candidate/filtered/{uuid}")
+    Call<ArrayList<VoteCandidatesModel>> getFilteredCandidates(@Header("Cookie") String accessToken, @Path("uuid") String uuid);
 
 //    for applying for election, called in Pages/ElectionTypeAdapter
     @POST("voter/verify")

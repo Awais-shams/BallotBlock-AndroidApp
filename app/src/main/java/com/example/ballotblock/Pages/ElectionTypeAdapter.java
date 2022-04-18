@@ -36,7 +36,6 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
     Context context;
     private String givenId;
     ElectionModel model;
-    boolean a = true;
 
 
     public ElectionTypeAdapter(ArrayList<ElectionModel> myList, Context context) {
@@ -92,21 +91,9 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
 //                    Toast.makeText(context.getApplicationContext(), "Yayy u clicked on Card.", Toast.LENGTH_SHORT).show();
 
                     String electionUuid = model.getUuid();
-                    String electionStatus = model.getStatus();
 //                    voter is verified or not to participate in election
-                    if(CheckVoterVerification(electionUuid)) {
-//                        check if election has started or not
-                        if(electionStatus.equals("VOTING")) {
-                            Intent intent = new Intent(v.getContext(), Vote.class);
-                            v.getContext().startActivity(intent);
-                        }
-                        else {
-                            Toast.makeText(context.getApplicationContext(), "Voter verified, but Election not started yet.", Toast.LENGTH_SHORT).show();
-                        }
+                    CheckVoterVerification(electionUuid, v);
                     }
-
-
-                }
             });
 
             itemView.findViewById(R.id.applyVoteBtn).setOnClickListener(new View.OnClickListener() {
@@ -164,7 +151,7 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
                         }
                     }
                     else {
-                        Toast.makeText(context.getApplicationContext(), "Voter already registered before", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context.getApplicationContext(), "Voter already applied for registeration of election", Toast.LENGTH_SHORT).show();
                     }
                 }
                 @Override
@@ -174,7 +161,7 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
             });
         }
 
-        public boolean CheckVoterVerification(String electionUuid) {
+        public void CheckVoterVerification(String electionUuid, View v) {
             MyRetrofitInterface apiInterface;
             SharedPreferences sharedPreferences;
 
@@ -186,7 +173,7 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
 
             if(givenId == null) {
                 Toast.makeText(context.getApplicationContext(), "Please enter ID below on clicking apply now, then enter election.", Toast.LENGTH_SHORT).show();
-                return false;
+                return;
             }
 
             VoterVerifyModel voterVerifyModel = new VoterVerifyModel(electionUuid, voterUuid, givenId);
@@ -201,14 +188,20 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
 
                         if (status.equals("no voter found")) {
                             Toast.makeText(context.getApplicationContext(), "Please Apply for election First.", Toast.LENGTH_SHORT).show();
-                            a = false;
                         } else if(status.equals("not verified")) {
                             Toast.makeText(context.getApplicationContext(), "Voter is not yet verified.", Toast.LENGTH_SHORT).show();
-                            a = false;
                         }
                         else if(status.equals("verified")) {
                             Toast.makeText(context.getApplicationContext(), "Voter is verified.", Toast.LENGTH_SHORT).show();
-                            a = true;
+                            String electionStatus = model.getStatus();
+                            if(electionStatus.equals("VOTING")) {
+                                Intent intent = new Intent(v.getContext(), Vote.class);
+                                intent.putExtra("electionUuid", electionUuid);
+                                v.getContext().startActivity(intent);
+                            }
+                            else {
+                                Toast.makeText(context.getApplicationContext(), "Voter verified, but Election not started yet.", Toast.LENGTH_SHORT).show();
+                            }
                         }
 //                        Toast.makeText(context.getApplicationContext(), "Voter is verified.", Toast.LENGTH_SHORT).show();
                         Log.d("OnClickElection", "API response body: " + response.body());
@@ -238,7 +231,6 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
                     Toast.makeText(context.getApplicationContext(), "API fetch failed.", Toast.LENGTH_SHORT).show();
                 }
             });
-            return a;
         }
 
     }
