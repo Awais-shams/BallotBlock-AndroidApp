@@ -16,38 +16,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ballotblock.Pages.com.example.ballotblock.Election;
 import com.example.ballotblock.R;
-import com.example.ballotblock.RestAPI.ElectionModel;
 import com.example.ballotblock.RestAPI.VoteCandidatesModel;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.web3j.abi.EventValues;
-import org.web3j.abi.FunctionEncoder;
-import org.web3j.abi.TypeReference;
 import org.web3j.crypto.Credentials;
+import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.admin.methods.response.PersonalUnlockAccount;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
-import org.web3j.tx.Contract;
-import org.web3j.tx.ManagedTransaction;
-import org.web3j.tx.Transfer;
 import org.web3j.tx.gas.DefaultGasProvider;
-import org.web3j.utils.Convert;
 
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.security.Provider;
 import java.security.Security;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.function.Function;
 
 public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAdapter.MyViewHolder> {
     ArrayList<VoteCandidatesModel> myList;
@@ -56,10 +40,13 @@ public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAd
     String URL, ethAddress, password, fileName, walletAddress, contractAddress;
     File walletDir;
     SharedPreferences sharedPreferences;
+//    electionContractAddress will remain same for all list of candidates, because candidates are filtered and shown for only that specific election.
+    String electionContractAddress;
 
-    public VoteCandidatesAdapter(ArrayList<VoteCandidatesModel> myList, Context context) {
+    public VoteCandidatesAdapter(ArrayList<VoteCandidatesModel> myList, Context context, String electionContractAddress) {
         this.myList = myList;
         this.context = context;
+        this.electionContractAddress = electionContractAddress;
     }
 
     @NonNull
@@ -134,8 +121,9 @@ public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAd
 
             //        Infura Rinkeby Network url
             URL = "https://rinkeby.infura.io/v3/6c60a808c9c54857a88cc2a8f969d5a8";
-//           -------- have to get this address from election api -------------
-            contractAddress = "0x080cEe9d8A8Bb57b894Dba17A1BF201bD377B347";
+//           election contract address which is uploaded to rinkeby testnet
+//            contractAddress = "0x080cEe9d8A8Bb57b894Dba17A1BF201bD377B347";
+
             Credentials credentials = null;
             String electionName = null;
 
@@ -153,6 +141,11 @@ public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAd
             catch (Exception e){
                 Toast.makeText(context.getApplicationContext(), "Could not Fetch Address... ", Toast.LENGTH_LONG).show();
             }
+            ECKeyPair ecKeyPair = credentials.getEcKeyPair();
+            String privateKey = ecKeyPair.getPrivateKey().toString(16);
+
+//            we create credentials once again with private key of user, so user can send eth and make state change to BC i.e casting vote.
+            credentials = Credentials.create(privateKey);
 
 //            // gas limit
 //            BigInteger gasLimit = BigInteger.valueOf(100000000);
@@ -161,20 +154,17 @@ public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAd
 //            BigInteger gasPrice = BigInteger.valueOf(1000000);
 ////            22000000000
 
-//            Account 3 on MetaMask
-            credentials = Credentials.create("42f953134174523e1105f1b24bb53a9c7514f9726676b7a54e6480b1609f50ce");
-
-
 //            load the election
+//            Gas price way
 //            Election contract = Election.load(contractAddress, client, credentials,Contract.GAS_PRICE, Contract.GAS_LIMIT);
-            Election contract = Election.load(contractAddress, client, credentials, new DefaultGasProvider());
-
+//            default gas price way, works fine as of now and
+//            if we pass credentials here from load method it doesnt work for state change of BC, it works when we create credentials with help of private key,
+//            as we did above.
+            Election contract = Election.load(electionContractAddress, client, credentials, new DefaultGasProvider());
 
             try {
                 electionName = contract.electionName().sendAsync().get();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
 //            medium article way, as api returns final to avoid blocking, read on web3j docs
@@ -182,84 +172,39 @@ public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAd
 //            electionName = name.get();
             Log.d("tagg", electionName);
 
+//            candidateAddress = "0xb18DCb383237b27fD770f7BE4DA8B1fCd9BBb1d3";
 
-            candidateAddress = "0xb18DCb383237b27fD770f7BE4DA8B1fCd9BBb1d3";
 
-//            Function function = new Function<>(
-//                    "vote",  // function we're calling
-//                    Arrays.asList(new Type(value), ...),  // Parameters to pass as Solidity Types
-//            Arrays.asList(new TypeReference<Type>() {}, ...));
-//
-//            String encodedFunction = FunctionEncoder.encode(function)
-//            Transaction transaction = Transaction.createFunctionCallTransaction(
-//                    <from>, <gasPrice>, <gasLimit>, contractAddress, <funds>, encodedFunction);
-//
-//            org.web3j.protocol.core.methods.response.EthSendTransaction transactionResponse =
-//                    web3j.ethSendTransaction(transaction).sendAsync().get();
-//
-//            String transactionHash = transactionResponse.getTransactionHash();
+//                CompletableFuture<TransactionReceipt> vote = contract.vote(candidateAddress).sendAsync();
 
-            //                CompletableFuture<TransactionReceipt> transactionReceiptCompletableFuture = contract.vote(candidateAddress).sendAsync();
-//
-//                transactionReceiptCompletableFuture.thenAccept(transactionReceipt -> {
-//
-//                    // then accept gets transaction receipt only if the transaction is successful
-//
-//                }).exceptionally(transactionReceipt  -> {
-//                    return null;
-//                });
+            String result = null;
+            try {
+                TransactionReceipt transactionReceipt = contract.vote(candidateAddress).sendAsync().get();
+                result = " gasUsed: " + transactionReceipt.getGasUsed() + " tranasctionHash: " + transactionReceipt.getTransactionHash();
 
-//                Future<TransactionReceipt> transactionReceiptFuture = contract.vote(candidateAddress).sendAsync();
-//            String result = null;
+                Log.d("tagg", "Successfully Voted... " +  result);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+//            getting status of election Deployed, Voting or Ended.
 //            try {
-//                result = " gas: " +
-//                        transactionReceiptFuture.get().getGasUsed();
+//                Log.d("tagg", "Status of Election: " + contract.getStatus().sendAsync().get());
 //            } catch (ExecutionException e) {
 //                e.printStackTrace();
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
-//            Log.d("tagg", result);
 
-//                CompletableFuture<TransactionReceipt> vote = contract.vote(candidateAddress).sendAsync();
-//                electionName = String.valueOf(vote.get());
-
-//                TransactionReceipt transactionReceipt = contract.vote(candidateAddress).sendAsync().get();
-//            contract.vote(candidateAddress).sendAsync();
-
-            try {
-                Log.d("tagg", "Voted: " + contract.vote(candidateAddress).sendAsync().get());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-//            send ether
+//            getting address of candidate which user casted vote to.
 //            try {
-//                credentials = WalletUtils.loadCredentials(password, walletDir);
-//                TransactionReceipt receipt = Transfer.sendFunds(client, credentials, "0x2A7823474cAB2cD3C563E19DB2EFc896b1BAbF01", new BigDecimal(100L), Convert.Unit.ETHER).sendAsync().get();
-//                Toast.makeText(context.getApplicationContext(), "Transaction complete: " + receipt.getTransactionHash(), Toast.LENGTH_LONG).show();
+//                Log.d("tagg", "Candidate Address: " + contract.candidateAddresses(BigInteger.valueOf(0)).sendAsync().get());
+//            } catch (ExecutionException e) {
+//                e.printStackTrace();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
 //            }
-//            catch (Exception e) {
-//                Toast.makeText(context.getApplicationContext(), "Could not send Ether, " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-//                Toast.makeText(context.getApplicationContext(), "Could not send Ether, " + e.getMessage(), Toast.LENGTH_LONG).show();
-//                Log.d("tagg", "Could not send Ether, " + e.getLocalizedMessage());
-//            }
-
-            try {
-                Log.d("tagg", "Voted: " + contract.getStatus().sendAsync().get());
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                Log.d("tagg", "Voted: " + contract.candidateAddresses(BigInteger.valueOf(0)).sendAsync().get());
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
 
 
         }

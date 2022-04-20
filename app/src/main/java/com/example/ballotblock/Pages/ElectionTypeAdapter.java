@@ -67,17 +67,6 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
         holder.model = model;
         holder.position = holder.getAdapterPosition();
 
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                    Toast.makeText(context.getApplicationContext(), "Yayy u clicked on Card." + holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
-//
-////                String electionUuid = model.getUuid();
-////                    String electionUuid = myList.get(position).getUuid();
-////                    voter is verified or not to participate in election
-////                CheckVoterVerification(electionUuid, v);
-//            }
-//        });
     }
 
     @Override
@@ -108,13 +97,41 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(givenId == null) {
+                        Toast.makeText(context.getApplicationContext(), "Please enter ID below on clicking apply now to register for elections.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+    //                  Alert Dialog Box to take id from user
+                    AlertDialog.Builder myDialog = new AlertDialog.Builder(v.getContext());
+                    myDialog.setTitle("Enter same ID used for election registration: ");
+                    final EditText idInput = new EditText(context.getApplicationContext());
+                    idInput.setInputType(InputType.TYPE_CLASS_TEXT);
+                    myDialog.setView(idInput);
+                    myDialog.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            givenId = idInput.getText().toString();
+        //                    String electionUuid = model.getUuid();
+                            String electionUuid = myList.get(position).getUuid();
+                            String electionContractAddress = myList.get(position).getContractAddress();
+        //                    voter is verified or not to participate in election
+                            CheckVoterVerification(electionUuid, v, electionContractAddress);
+
+                        }
+                    });
+                    myDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    myDialog.show();
 //                    Toast.makeText(context.getApplicationContext(), "Yayy u clicked on Card.", Toast.LENGTH_SHORT).show();
 //                    Toast.makeText(context.getApplicationContext(), "Yayy u clicked on Card." + position + " , elecName: " + model.getName(), Toast.LENGTH_SHORT).show();
 
-//                    String electionUuid = model.getUuid();
-                    String electionUuid = myList.get(position).getUuid();
-//                    voter is verified or not to participate in election
-                    CheckVoterVerification(electionUuid, v);
+
+
                     }
             });
 
@@ -195,7 +212,7 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
         }
 
 //        when clicked on Election Card -- checks if user is permitted to vote in election or not.
-        public void CheckVoterVerification(String electionUuid, View v) {
+        public void CheckVoterVerification(String electionUuid, View v, String electionContractAddress) {
 
             apiInterface = MyRetrofit.getRetrofit().create(MyRetrofitInterface.class);
             sharedPreferences = context.getSharedPreferences("MyFile",0);
@@ -203,13 +220,8 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
             String accessToken = sharedPreferences.getString("accessToken","");
             String voterUuid = sharedPreferences.getString("voterUuid","");
 
-            if(givenId == null) {
-                Toast.makeText(context.getApplicationContext(), "Please enter ID below on clicking apply now, then enter election.", Toast.LENGTH_SHORT).show();
-                return;
-            }
 
             VoterVerificationMode voterVerificationMode = new VoterVerificationMode(electionUuid, voterUuid, givenId);
-
             apiInterface.isVoterVerification(accessToken, voterVerificationMode).enqueue(new Callback<VoterVerifyRespModel>() {
                 @Override
                 public void onResponse(Call<VoterVerifyRespModel> call, Response<VoterVerifyRespModel> response) {
@@ -232,6 +244,7 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
                                 givenId = null;
                                 Intent intent = new Intent(v.getContext(), Vote.class);
                                 intent.putExtra("electionUuid", electionUuid);
+                                intent.putExtra("contractAddress", electionContractAddress);
                                 v.getContext().startActivity(intent);
                             }
                             else {
@@ -240,24 +253,13 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
                         }
                         givenId = null;
 //                        Toast.makeText(context.getApplicationContext(), "Voter is verified.", Toast.LENGTH_SHORT).show();
-                        Log.d("OnClickElection", "API response body: " + response.body());
-                        Log.d("OnClickElection", "API response body: " + voterVerifyRespModel.getStatus());
-                        Log.d("OnClickElection", "API response message: " + response.message());
-                        Log.d("OnClickElection", "API response errorBody: " + response.errorBody());
-                        Log.d("OnClickElection", "API response raw: " + response.raw());
-                        Log.d("OnClickElection", "API response headers: " + response.headers());
-                        Log.d("OnClickElection", "API response toString: " + response.toString());
-                        Log.d("OnClickElection", "API response code: " + response.code());
+                        Log.d("tagg", "API response body: " + response.body());
                     }
                     else {
 //                        Toast.makeText(context.getApplicationContext(), "API, response body Error you cannot participate in election.", Toast.LENGTH_SHORT).show();
-                        Log.d("OnClickElection", "API response body: " + response.body());
-                        Log.d("OnClickElection", "API response message: " + response.message());
-                        Log.d("OnClickElection", "API response errorBody: " + response.errorBody());
-                        Log.d("OnClickElection", "API response raw: " + response.raw());
-                        Log.d("OnClickElection", "API response headers: " + response.headers());
-                        Log.d("OnClickElection", "API response toString: " + response.toString());
-                        Log.d("OnClickElection", "API response code: " + response.code());
+                        Log.d("tagg", "API response body: " + response.body());
+                        Log.d("tagg", "API response message: " + response.message());
+                        Log.d("tagg", "API response errorBody: " + response.errorBody());
 
                         Toast.makeText(context.getApplicationContext(), "Voter is not verified or election not started.", Toast.LENGTH_SHORT).show();
                         givenId = null;

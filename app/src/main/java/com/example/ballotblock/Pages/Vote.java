@@ -85,6 +85,8 @@ public class Vote extends AppCompatActivity {
 //        get filtered candidates
         Intent intent = getIntent();
         String electionUuid = intent.getStringExtra("electionUuid");
+        String electionContractAddress = intent.getStringExtra("contractAddress");
+
 
         apiInterface.getFilteredCandidates(accessToken, electionUuid).enqueue(new Callback<ArrayList<VoteCandidatesModel>>() {
             @Override
@@ -92,7 +94,7 @@ public class Vote extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if(response.body().size() > 0) {
                         Toast.makeText(Vote.this, "Showing List of Candidates.", Toast.LENGTH_SHORT).show();
-                         GenerateCandidatesData(response.body());
+                         GenerateCandidatesData(response.body(), electionContractAddress);
                     }
                     else {
                         Toast.makeText(Vote.this, "There are no candidates for this Election.", Toast.LENGTH_SHORT).show();
@@ -110,12 +112,12 @@ public class Vote extends AppCompatActivity {
         });
     }
 
-    public void GenerateCandidatesData(ArrayList<VoteCandidatesModel> candidatesData) {
+    public void GenerateCandidatesData(ArrayList<VoteCandidatesModel> candidatesData, String electionContractAddress) {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Vote.this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        myAdapter = new VoteCandidatesAdapter(candidatesData, getApplicationContext());
+        myAdapter = new VoteCandidatesAdapter(candidatesData, getApplicationContext(), electionContractAddress);
         recyclerView.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();
     }

@@ -210,7 +210,6 @@ public class Wallet extends AppCompatActivity {
         catch (Exception e){
             Toast.makeText(this, "Could not Fetch Address... ", Toast.LENGTH_LONG).show();
         }
-
     }
 
     public void getBalance(Web3j client, String ethAddress) {
@@ -223,13 +222,10 @@ public class Wallet extends AppCompatActivity {
         EthGetBalance balanceResponse = null;
         try {
             balanceResponse = client.ethGetBalance(ethAddress, DefaultBlockParameter.valueOf("latest")).sendAsync().get(60, TimeUnit.SECONDS);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (TimeoutException e) {
+        } catch (ExecutionException | InterruptedException | TimeoutException e) {
             e.printStackTrace();
         }
+
         final BigInteger unscaledBalance = balanceResponse.getBalance();
         final BigDecimal scaledBalance = new BigDecimal(unscaledBalance).divide(new BigDecimal(1000000000000000000L), 18, RoundingMode.HALF_UP);
         Log.d("tagg", "Eth Balance: " + String.valueOf(scaledBalance));
@@ -251,9 +247,7 @@ public class Wallet extends AppCompatActivity {
             Credentials credentials = null;
             try {
                 credentials = WalletUtils.loadCredentials(password, walletDir);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (CipherException e) {
+            } catch (IOException | CipherException e) {
                 e.printStackTrace();
             }
             ECKeyPair ecKeyPair = credentials.getEcKeyPair();
