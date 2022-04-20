@@ -22,6 +22,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
+import org.web3j.crypto.ECKeyPair;
+import org.web3j.crypto.Keys;
+import org.web3j.crypto.WalletFile;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
@@ -149,9 +152,7 @@ public class Wallet extends AppCompatActivity {
     public void CreateWallet(View view) {
 //        Wallet Creation
         password = "Pass123";
-
         sharedPreferences = getSharedPreferences("MyFile",0);
-
 //            check if wallet is already created or not
         ethAddress = sharedPreferences.getString("ethAddress",null);
         if(ethAddress != null) {
@@ -161,15 +162,20 @@ public class Wallet extends AppCompatActivity {
 
         try{
             fileName =  WalletUtils.generateLightNewWalletFile(password,walletDir);
-            Log.d("tagg","FileName: " + fileName);
+//            Log.d("tagg","FileName: " + fileName);
             walletDir = new File(walletPath + "/" + fileName);
             Log.d("tagg", "Wallet Directory: " + String.valueOf(walletDir));
 
+//            Load credentials to display address of newly created Wallet
             Credentials credentials = WalletUtils.loadCredentials(password, walletDir);
             ethAddress = credentials.getAddress();
+            ECKeyPair ecKeyPair = credentials.getEcKeyPair();
+//            walletAddress.setText(ethAddress);
             Toast.makeText(this, "Your New Wallet Address is " + ethAddress, Toast.LENGTH_LONG).show();
             Log.d("tagg", "New Wallet Address: " + ethAddress);
-            walletAddress.setText(ethAddress);
+            Log.d("tagg", "EC Key Pair PrivateKey: " + ecKeyPair.getPrivateKey().toString(16));
+//            Log.d("tagg", "EC Key Pair PublicKey: " + ecKeyPair.getPublicKey().toString(16));
+
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("ethAddress", ethAddress);
@@ -208,9 +214,10 @@ public class Wallet extends AppCompatActivity {
     }
 
     public void getBalance(Web3j client, String ethAddress) {
+        sharedPreferences = getSharedPreferences("MyFile",0);
+
 //        neeche address jisme 0.6 eth parre hue, link also open in browser of etherscan
 //        ethAddress = "0xD47B9fC80449C5EDA71746a90C5F5a0870148fc5";
-        sharedPreferences = getSharedPreferences("MyFile",0);
         ethAddress = sharedPreferences.getString("ethAddress","");
 
         EthGetBalance balanceResponse = null;
@@ -235,9 +242,33 @@ public class Wallet extends AppCompatActivity {
 
     public void SendEther(View view) {
         try {
-            Credentials credentials = WalletUtils.loadCredentials(password, walletDir);
-            TransactionReceipt receipt = Transfer.sendFunds(client, credentials, "0x8c1317F9C8Eab696DFa6E854b2Da49D0FC652a1E", new BigDecimal(1), Convert.Unit.ETHER).sendAsync().get();
+            password = "Pass123";
+            sharedPreferences = getSharedPreferences("MyFile",0);
+            String walletDirStr = sharedPreferences.getString("walletDir","");
+            walletDir = new File(walletDirStr);
+
+//            Load credentials to display address of newly created Wallet
+            Credentials credentials = null;
+            try {
+                credentials = WalletUtils.loadCredentials(password, walletDir);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (CipherException e) {
+                e.printStackTrace();
+            }
+            ECKeyPair ecKeyPair = credentials.getEcKeyPair();
+            String privateKey = ecKeyPair.getPrivateKey().toString(16);
+
+//            this way of loading credentials does not work for sending ether/state change of BC, only works for reading SC.
+//            Credentials credentials = WalletUtils.loadCredentials(password, walletDir);
+//            private, publick key method - does not work
+//            Credentials credentials = Credentials.create("ad1e3f687c647bb439c54f28a289c02348f5ebf10521aa6f1d656395967cc35d", "0x2A7823474cAB2cD3C563E19DB2EFc896b1BAbF01");
+
+//            we create credentials once again with private key of user, so user can send eth and make state change to BC.
+            credentials = Credentials.create(privateKey);
+            TransactionReceipt receipt = Transfer.sendFunds(client, credentials, "0xb18DCb383237b27fD770f7BE4DA8B1fCd9BBb1d3", new BigDecimal(1), Convert.Unit.KWEI).sendAsync().get();
             Toast.makeText(this, "Transaction complete: " + receipt.getTransactionHash(), Toast.LENGTH_LONG).show();
+            Log.d("tagg", "Transaction complete: " + receipt.getTransactionHash());
         }
         catch (Exception e) {
             Toast.makeText(this, "Could not send Ether, " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();

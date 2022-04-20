@@ -31,11 +31,14 @@ import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.Contract;
 import org.web3j.tx.ManagedTransaction;
+import org.web3j.tx.Transfer;
 import org.web3j.tx.gas.DefaultGasProvider;
+import org.web3j.utils.Convert;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.Provider;
 import java.security.Security;
@@ -131,8 +134,8 @@ public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAd
 
             //        Infura Rinkeby Network url
             URL = "https://rinkeby.infura.io/v3/6c60a808c9c54857a88cc2a8f969d5a8";
-//            contractAddress = "0x1D3d3e74dE0Aac8cB475d54c5D34de2beb35bc99";
-            contractAddress = "0x1Bc61cA6537491B593cADd374Ee151787Ec6EC39";
+//           -------- have to get this address from election api -------------
+            contractAddress = "0x080cEe9d8A8Bb57b894Dba17A1BF201bD377B347";
             Credentials credentials = null;
             String electionName = null;
 
@@ -151,12 +154,15 @@ public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAd
                 Toast.makeText(context.getApplicationContext(), "Could not Fetch Address... ", Toast.LENGTH_LONG).show();
             }
 
-            // gas limit
-            BigInteger gasLimit = BigInteger.valueOf(100000000);
-//            4300000
-            // gas price
-            BigInteger gasPrice = BigInteger.valueOf(1000000);
-//            22000000000
+//            // gas limit
+//            BigInteger gasLimit = BigInteger.valueOf(100000000);
+////            4300000
+//            // gas price
+//            BigInteger gasPrice = BigInteger.valueOf(1000000);
+////            22000000000
+
+//            Account 3 on MetaMask
+            credentials = Credentials.create("42f953134174523e1105f1b24bb53a9c7514f9726676b7a54e6480b1609f50ce");
 
 
 //            load the election
@@ -204,9 +210,16 @@ public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAd
 //                });
 
 //                Future<TransactionReceipt> transactionReceiptFuture = contract.vote(candidateAddress).sendAsync();
-//                String result = " gas: " +
+//            String result = null;
+//            try {
+//                result = " gas: " +
 //                        transactionReceiptFuture.get().getGasUsed();
-//                Log.d("tagg", result);
+//            } catch (ExecutionException e) {
+//                e.printStackTrace();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            Log.d("tagg", result);
 
 //                CompletableFuture<TransactionReceipt> vote = contract.vote(candidateAddress).sendAsync();
 //                electionName = String.valueOf(vote.get());
@@ -215,10 +228,22 @@ public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAd
 //            contract.vote(candidateAddress).sendAsync();
 
             try {
-                Log.d("tagg", "Voted: " + contract.vote("0xb18DCb383237b27fD770f7BE4DA8B1fCd9BBb1d3").sendAsync());
+                Log.d("tagg", "Voted: " + contract.vote(candidateAddress).sendAsync().get());
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+//            send ether
+//            try {
+//                credentials = WalletUtils.loadCredentials(password, walletDir);
+//                TransactionReceipt receipt = Transfer.sendFunds(client, credentials, "0x2A7823474cAB2cD3C563E19DB2EFc896b1BAbF01", new BigDecimal(100L), Convert.Unit.ETHER).sendAsync().get();
+//                Toast.makeText(context.getApplicationContext(), "Transaction complete: " + receipt.getTransactionHash(), Toast.LENGTH_LONG).show();
+//            }
+//            catch (Exception e) {
+//                Toast.makeText(context.getApplicationContext(), "Could not send Ether, " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(context.getApplicationContext(), "Could not send Ether, " + e.getMessage(), Toast.LENGTH_LONG).show();
+//                Log.d("tagg", "Could not send Ether, " + e.getLocalizedMessage());
+//            }
 
             try {
                 Log.d("tagg", "Voted: " + contract.getStatus().sendAsync().get());
