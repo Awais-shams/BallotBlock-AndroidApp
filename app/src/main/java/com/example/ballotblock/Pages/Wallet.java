@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -53,6 +54,7 @@ public class Wallet extends AppCompatActivity {
     String password, walletPath;
     File walletDir;
     String fileName;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,29 +119,13 @@ public class Wallet extends AppCompatActivity {
 
         client = Web3j.build(new HttpService(URL));
 //        by Default to check balance of any eth account mainnet/rinkeby
-        ethAddress = "0x4063a1c143fc2cdb10447db65e6d61f7e241e98b";
+//        ethAddress = "0x4063a1c143fc2cdb10447db65e6d61f7e241e98b";
 
 //        for Wallet Credentails and loading
         walletPath = getFilesDir().getAbsolutePath();
         walletDir  = new File(walletPath);
-    }
 
-    public void getBalance(Web3j client, String ethAddress) {
-        ethAddress = "0xD47B9fC80449C5EDA71746a90C5F5a0870148fc5";
-        EthGetBalance balanceResponse = null;
-        try {
-            balanceResponse = client.ethGetBalance(ethAddress, DefaultBlockParameter.valueOf("latest")).sendAsync().get(60, TimeUnit.SECONDS);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (TimeoutException e) {
-            e.printStackTrace();
-        }
-        final BigInteger unscaledBalance = balanceResponse.getBalance();
-        final BigDecimal scaledBalance = new BigDecimal(unscaledBalance).divide(new BigDecimal(1000000000000000000L), 18, RoundingMode.HALF_UP);
-        Log.d("tagg", "Eth Balance: " + String.valueOf(scaledBalance));
-        Toast.makeText(this, "Eth Balance: " + scaledBalance, Toast.LENGTH_LONG).show();
+        sharedPreferences = getSharedPreferences("MyFile",0);
     }
 
     private void setupBouncyCastle() {
@@ -164,6 +150,15 @@ public class Wallet extends AppCompatActivity {
 //        Wallet Creation
         password = "Pass123";
 
+        sharedPreferences = getSharedPreferences("MyFile",0);
+
+//            check if wallet is already created or not
+        ethAddress = sharedPreferences.getString("ethAddress",null);
+        if(ethAddress != null) {
+            Toast.makeText(getApplicationContext(), "Wallet already created before.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         try{
             fileName =  WalletUtils.generateLightNewWalletFile(password,walletDir);
             Log.d("tagg","FileName: " + fileName);
@@ -171,29 +166,40 @@ public class Wallet extends AppCompatActivity {
             Log.d("tagg", "Wallet Directory: " + String.valueOf(walletDir));
 
             Credentials credentials = WalletUtils.loadCredentials(password, walletDir);
-            Toast.makeText(this, "Your New Wallet Address is " + credentials.getAddress(), Toast.LENGTH_LONG).show();
-            Log.d("tagg", "New Wallet Address: " + credentials.getAddress());
-            walletAddress.setText(credentials.getAddress());
             ethAddress = credentials.getAddress();
+            Toast.makeText(this, "Your New Wallet Address is " + ethAddress, Toast.LENGTH_LONG).show();
+            Log.d("tagg", "New Wallet Address: " + ethAddress);
+            walletAddress.setText(ethAddress);
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("ethAddress", ethAddress);
+            editor.putString("walletDir", String.valueOf(walletDir));
+            editor.apply();
         }
         catch (Exception e){
+            Toast.makeText(this, "Error. Could not create Wallet.", Toast.LENGTH_LONG).show();
             Log.d("tagg", "Wallet not created");
         }
-
     }
 
     public void MyAddress(View view) {
 //        Load Wallet Credentials
         password = "Pass123";
-//        walletPath = getFilesDir().getAbsolutePath();
-//        walletDir  = new File(walletPath);
 
-        walletDir = new File("/data/user/0/com.example.ballotblock/files/UTC--2022-04-16T13-24-46.130000000Z--d47b9fc80449c5eda71746a90c5f5a0870148fc5.json");
+        sharedPreferences = getSharedPreferences("MyFile",0);
+        String walletDirSP = sharedPreferences.getString("walletDir","");
+
+//        jisme 0.60 eth hain, rinkeby wallet
+//        walletDir = new File("/data/user/0/com.example.ballotblock/files/UTC--2022-04-16T13-24-46.130000000Z--d47b9fc80449c5eda71746a90c5f5a0870148fc5.json");
+        walletDir = new File(walletDirSP);
 
         try {
             Credentials credentials = WalletUtils.loadCredentials(password, walletDir);
             Toast.makeText(this, "Your address is " + credentials.getAddress(), Toast.LENGTH_LONG).show();
             Log.d("tagg", "Wallet Address: " + credentials.getAddress());
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("ethAddress", credentials.getAddress());
+            editor.apply();
         }
         catch (Exception e){
             Toast.makeText(this, "Could not Fetch Address... ", Toast.LENGTH_LONG).show();
@@ -201,10 +207,31 @@ public class Wallet extends AppCompatActivity {
 
     }
 
+    public void getBalance(Web3j client, String ethAddress) {
+//        neeche address jisme 0.6 eth parre hue, link also open in browser of etherscan
+//        ethAddress = "0xD47B9fC80449C5EDA71746a90C5F5a0870148fc5";
+        sharedPreferences = getSharedPreferences("MyFile",0);
+        ethAddress = sharedPreferences.getString("ethAddress","");
+
+        EthGetBalance balanceResponse = null;
+        try {
+            balanceResponse = client.ethGetBalance(ethAddress, DefaultBlockParameter.valueOf("latest")).sendAsync().get(60, TimeUnit.SECONDS);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
+        final BigInteger unscaledBalance = balanceResponse.getBalance();
+        final BigDecimal scaledBalance = new BigDecimal(unscaledBalance).divide(new BigDecimal(1000000000000000000L), 18, RoundingMode.HALF_UP);
+        Log.d("tagg", "Eth Balance: " + String.valueOf(scaledBalance));
+        Toast.makeText(this, "Eth Balance: " + scaledBalance, Toast.LENGTH_LONG).show();
+    }
+
     public void GetBalance(View view) {
         getBalance(client, ethAddress);
     }
-
 
     public void SendEther(View view) {
         try {

@@ -21,6 +21,7 @@ import com.example.ballotblock.R;
 import com.example.ballotblock.RestAPI.ElectionModel;
 import com.example.ballotblock.RestAPI.MyRetrofit;
 import com.example.ballotblock.RestAPI.MyRetrofitInterface;
+import com.example.ballotblock.RestAPI.VoterVerificationMode;
 import com.example.ballotblock.RestAPI.VoterVerifyModel;
 import com.example.ballotblock.RestAPI.VoterVerifyRespModel;
 
@@ -34,8 +35,11 @@ import retrofit2.Response;
 public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapter.MyViewHolder> {
     ArrayList<ElectionModel> myList;
     Context context;
-    private String givenId;
+    private static String givenId;
     ElectionModel model;
+    MyRetrofitInterface apiInterface;
+    SharedPreferences sharedPreferences;
+    String walletAddress = null;
 
 
     public ElectionTypeAdapter(ArrayList<ElectionModel> myList, Context context) {
@@ -60,6 +64,20 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
         holder.electionEndTime.setText(model.getEndDate());
         holder.electionDesignation.setText(model.getDesignation());
         holder.electionStatus.setText(model.getStatus());
+        holder.model = model;
+        holder.position = holder.getAdapterPosition();
+
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                    Toast.makeText(context.getApplicationContext(), "Yayy u clicked on Card." + holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
+//
+////                String electionUuid = model.getUuid();
+////                    String electionUuid = myList.get(position).getUuid();
+////                    voter is verified or not to participate in election
+////                CheckVoterVerification(electionUuid, v);
+//            }
+//        });
     }
 
     @Override
@@ -74,6 +92,8 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
         public TextView electionEndTime;
         public EditText electionDesignation;
         public EditText electionStatus;
+        int position;
+        ElectionModel model;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,8 +109,10 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
                 @Override
                 public void onClick(View v) {
 //                    Toast.makeText(context.getApplicationContext(), "Yayy u clicked on Card.", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context.getApplicationContext(), "Yayy u clicked on Card." + position + " , elecName: " + model.getName(), Toast.LENGTH_SHORT).show();
 
-                    String electionUuid = model.getUuid();
+//                    String electionUuid = model.getUuid();
+                    String electionUuid = myList.get(position).getUuid();
 //                    voter is verified or not to participate in election
                     CheckVoterVerification(electionUuid, v);
                     }
@@ -109,7 +131,9 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
                         public void onClick(DialogInterface dialog, int which) {
                             givenId = idInput.getText().toString();
 //                            Toast.makeText(context.getApplicationContext(), "Entered ID is " + givenId, Toast.LENGTH_SHORT).show();
-                            String electionUuid = model.getUuid();
+//                            String electionUuid = model.getUuid();
+                            String electionUuid = myList.get(position).getUuid();
+
                             sendApplyRequest(electionUuid, givenId);
 
                         }
@@ -127,17 +151,23 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
             });
 
         }
+//        when clicked on "Apply to Vote" button -- checks if user has applied to participate in election or not and providing givenId
         public void sendApplyRequest(String electionUuid, String givenId) {
-            MyRetrofitInterface apiInterface;
-            SharedPreferences sharedPreferences;
 
             apiInterface = MyRetrofit.getRetrofit().create(MyRetrofitInterface.class);
             sharedPreferences = context.getSharedPreferences("MyFile",0);
 
+//            check if wallet address is created and attached or not
+            walletAddress = sharedPreferences.getString("ethAddress",null);
+            if(walletAddress == null) {
+                Toast.makeText(context.getApplicationContext(), "Wallet not created, please create Wallet to continue", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             String accessToken = sharedPreferences.getString("accessToken","");
             String voterUuid = sharedPreferences.getString("voterUuid","");
 
-            VoterVerifyModel voterVerifyModel = new VoterVerifyModel(electionUuid, voterUuid, givenId);
+            VoterVerifyModel voterVerifyModel = new VoterVerifyModel(electionUuid, voterUuid, givenId, walletAddress);
 
             apiInterface.isVoterVerify(accessToken, voterVerifyModel).enqueue(new Callback<VoterVerifyRespModel>() {
                 @Override
@@ -148,6 +178,7 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
 
                         if (!voterVerifyRespModel.isRegistered()) {
                             Toast.makeText(context.getApplicationContext(), "You have successfully applied for this election.", Toast.LENGTH_SHORT).show();
+
                         }
                     }
                     else {
@@ -158,12 +189,13 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
                 public void onFailure(Call<VoterVerifyRespModel> call, Throwable t) {
                     Toast.makeText(context.getApplicationContext(), "API fetch failed.", Toast.LENGTH_SHORT).show();
                 }
+
             });
+            givenId = null;
         }
 
+//        when clicked on Election Card -- checks if user is permitted to vote in election or not.
         public void CheckVoterVerification(String electionUuid, View v) {
-            MyRetrofitInterface apiInterface;
-            SharedPreferences sharedPreferences;
 
             apiInterface = MyRetrofit.getRetrofit().create(MyRetrofitInterface.class);
             sharedPreferences = context.getSharedPreferences("MyFile",0);
@@ -176,9 +208,9 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
                 return;
             }
 
-            VoterVerifyModel voterVerifyModel = new VoterVerifyModel(electionUuid, voterUuid, givenId);
+            VoterVerificationMode voterVerificationMode = new VoterVerificationMode(electionUuid, voterUuid, givenId);
 
-            apiInterface.isVoterVerification(accessToken, voterVerifyModel).enqueue(new Callback<VoterVerifyRespModel>() {
+            apiInterface.isVoterVerification(accessToken, voterVerificationMode).enqueue(new Callback<VoterVerifyRespModel>() {
                 @Override
                 public void onResponse(Call<VoterVerifyRespModel> call, Response<VoterVerifyRespModel> response) {
 
@@ -188,13 +220,16 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
 
                         if (status.equals("no voter found")) {
                             Toast.makeText(context.getApplicationContext(), "Please Apply for election First.", Toast.LENGTH_SHORT).show();
+                            givenId = null;
                         } else if(status.equals("not verified")) {
                             Toast.makeText(context.getApplicationContext(), "Voter is not yet verified.", Toast.LENGTH_SHORT).show();
+                            givenId = null;
                         }
                         else if(status.equals("verified")) {
                             Toast.makeText(context.getApplicationContext(), "Voter is verified.", Toast.LENGTH_SHORT).show();
-                            String electionStatus = model.getStatus();
+                            String electionStatus = myList.get(position).getStatus();
                             if(electionStatus.equals("VOTING")) {
+                                givenId = null;
                                 Intent intent = new Intent(v.getContext(), Vote.class);
                                 intent.putExtra("electionUuid", electionUuid);
                                 v.getContext().startActivity(intent);
@@ -203,6 +238,7 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
                                 Toast.makeText(context.getApplicationContext(), "Voter verified, but Election not started yet.", Toast.LENGTH_SHORT).show();
                             }
                         }
+                        givenId = null;
 //                        Toast.makeText(context.getApplicationContext(), "Voter is verified.", Toast.LENGTH_SHORT).show();
                         Log.d("OnClickElection", "API response body: " + response.body());
                         Log.d("OnClickElection", "API response body: " + voterVerifyRespModel.getStatus());
@@ -224,6 +260,7 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
                         Log.d("OnClickElection", "API response code: " + response.code());
 
                         Toast.makeText(context.getApplicationContext(), "Voter is not verified or election not started.", Toast.LENGTH_SHORT).show();
+                        givenId = null;
                     }
                 }
                 @Override
@@ -231,6 +268,7 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
                     Toast.makeText(context.getApplicationContext(), "API fetch failed.", Toast.LENGTH_SHORT).show();
                 }
             });
+            givenId = null;
         }
 
     }

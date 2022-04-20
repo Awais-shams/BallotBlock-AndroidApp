@@ -8,6 +8,7 @@ public class MyRetrofit {
 //    1. If u are running with emulator use URL as http://10.0.2.2:8080/ instead of localhost
 //    2. Running from mobile app use PC IP address
     public static String uRL = "http://10.10.16.146:3001";
+//    public static String uRL = "https://ballotblock.herokuapp.com/";
 
     public static Retrofit getRetrofit() {
         if(retrofit == null){

@@ -92,7 +92,7 @@ public class Vote extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if(response.body().size() > 0) {
                         Toast.makeText(Vote.this, "Showing List of Candidates.", Toast.LENGTH_SHORT).show();
-                        GenerateCandidatesData(response.body());
+                         GenerateCandidatesData(response.body());
                     }
                     else {
                         Toast.makeText(Vote.this, "There are no candidates for this Election.", Toast.LENGTH_SHORT).show();

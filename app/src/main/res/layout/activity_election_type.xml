@@ -35,13 +35,16 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <!--        android:paddingBottom="?attr/actionBarSize"-->
+<!--    android:paddingBottom="150dp"-->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/electionTypeRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:background="@color/themeBackground"
-        android:paddingBottom="?attr/actionBarSize"
+        android:paddingBottom="125dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"

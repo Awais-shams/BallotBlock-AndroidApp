@@ -42,7 +42,7 @@ public interface MyRetrofitInterface {
 //    for checking if user is verified to vote in specific election, called in Pages/ElectionTypeAdapter
     @POST("voter/verificationStatus")
     Call<VoterVerifyRespModel> isVoterVerification(@Header("Cookie") String accessToken,
-                                             @Body VoterVerifyModel voterVerifyModel);
+                                             @Body VoterVerificationMode voterVerificationMode);
 
 
 }
