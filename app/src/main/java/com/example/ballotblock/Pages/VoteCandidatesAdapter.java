@@ -171,6 +171,7 @@ public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAd
 //            Future<String> name = (Future<String>) contract.electionName().sendAsync();
 //            electionName = name.get();
             Log.d("tagg", electionName);
+            Log.d("tagg", "User's address: " +  ethAddress);
 
 //            candidateAddress = "0xb18DCb383237b27fD770f7BE4DA8B1fCd9BBb1d3";
 
@@ -182,6 +183,9 @@ public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAd
                 TransactionReceipt transactionReceipt = contract.vote(candidateAddress).sendAsync().get();
                 result = " gasUsed: " + transactionReceipt.getGasUsed() + " tranasctionHash: " + transactionReceipt.getTransactionHash();
 
+                Toast.makeText(context.getApplicationContext(), "Successfully Voted... ", Toast.LENGTH_LONG).show();
+                Toast.makeText(context.getApplicationContext(), "gas used: " + transactionReceipt.getGasUsed(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context.getApplicationContext(), "transaction hash: " + transactionReceipt.getTransactionHash(), Toast.LENGTH_LONG).show();
                 Log.d("tagg", "Successfully Voted... " +  result);
             } catch (Exception e) {
                 e.printStackTrace();
