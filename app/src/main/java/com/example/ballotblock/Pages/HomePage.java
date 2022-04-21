@@ -5,23 +5,36 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.ballotblock.Authentication.LoginScreen;
 import com.example.ballotblock.R;
 import com.example.ballotblock.navigation.MapsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomePage extends AppCompatActivity {
     Toolbar toolbar;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPreferences = getSharedPreferences("MyFile",0);
+//            check if user is logged in.
+        String accessToken = sharedPreferences.getString("accessToken",null);
+        if(accessToken == null) {
+            Toast.makeText(getApplicationContext(), "Not Logged In.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), LoginScreen.class);
+            startActivity(intent);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+
 
         toolbar = findViewById(R.id.myToolbar);
         setSupportActionBar(toolbar);
@@ -60,22 +73,24 @@ public class HomePage extends AppCompatActivity {
                         Intent intent3 = new Intent(getApplicationContext(), Profile.class);
                         startActivity(intent3);
                         return true;
-                    case R.id.Map:
-//                        Toast.makeText(getApplicationContext(), "Map", Toast.LENGTH_SHORT).show();
-                        Log.d("TAG", "onNavigationItemSelected: Map");
-                        Intent intent4 = new Intent(getApplicationContext(), MapsActivity.class);
-                        startActivity(intent4);
-                        return true;
                 }
                 return false;
             }
         });
-
-
     }
 
     public void GoToElection(View view) {
         Intent intent = new Intent(getApplicationContext(), ElectionType.class);
         startActivity(intent);
+    }
+
+    public void Logout(View view) {
+        sharedPreferences = getSharedPreferences("MyFile",0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("accessToken");
+        editor.apply();
+        Intent intent = new Intent(getApplicationContext(), LoginScreen.class);
+        startActivity(intent);
+        finish();
     }
 }

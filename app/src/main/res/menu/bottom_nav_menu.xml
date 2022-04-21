@@ -24,11 +24,5 @@
         android:icon="@drawable/ic_user"
         android:title="@string/profile"
         />
-    <item
-        android:id="@+id/Map"
-        android:enabled="true"
-        android:icon="@drawable/ic_action_name"
-        android:title="@string/maps"
-        />
 
 </menu>

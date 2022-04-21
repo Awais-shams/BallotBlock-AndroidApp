@@ -55,24 +55,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
-    <!--    Vote Button-->
-    <Button
-        android:id="@+id/Vote_Now_btn"
-        android:layout_width="330dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="52dp"
-        android:backgroundTint="@color/themePrimary"
-        android:drawableStart="@drawable/resize_vote_icon"
-        android:drawablePadding="12dp"
-        android:gravity="start|center_vertical"
-        android:paddingStart="18dp"
-        android:paddingEnd="18dp"
-        android:text="@string/vote"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Election_type_btn" />
 
     <!--    FAQ Button-->
     <Button
@@ -91,7 +73,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Vote_Now_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/Election_type_btn" />
 
     <!--    Logout Button-->
     <Button
@@ -106,6 +88,7 @@
         android:paddingStart="18dp"
         android:paddingEnd="18dp"
         android:text="@string/logout"
+        android:onClick="Logout"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"

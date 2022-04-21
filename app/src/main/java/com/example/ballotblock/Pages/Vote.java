@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.ballotblock.Authentication.LoginScreen;
 import com.example.ballotblock.R;
 import com.example.ballotblock.RestAPI.ElectionModel;
 import com.example.ballotblock.RestAPI.MyRetrofit;
@@ -37,6 +38,14 @@ public class Vote extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPreferences = getSharedPreferences("MyFile",0);
+//            check if user is logged in.
+        String accessToken = sharedPreferences.getString("accessToken",null);
+        if(accessToken == null) {
+            Toast.makeText(getApplicationContext(), "Not Logged In.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), LoginScreen.class);
+            startActivity(intent);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vote2);
 

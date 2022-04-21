@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.ballotblock.Authentication.LoginScreen;
 import com.example.ballotblock.R;
 import com.example.ballotblock.navigation.Main_Profile;
 import com.example.ballotblock.navigation.MapsActivity;
@@ -61,6 +62,14 @@ public class Wallet extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPreferences = getSharedPreferences("MyFile",0);
+//            check if user is logged in.
+        String accessToken = sharedPreferences.getString("accessToken",null);
+        if(accessToken == null) {
+            Toast.makeText(getApplicationContext(), "Not Logged In.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), LoginScreen.class);
+            startActivity(intent);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet);
 
@@ -102,12 +111,6 @@ public class Wallet extends AppCompatActivity {
                         Log.d("TAG", "onNavigationItemSelected: Profile");
                         Intent intent3 = new Intent(getApplicationContext(), Profile.class);
                         startActivity(intent3);
-                        return true;
-                    case R.id.Map:
-//                        Toast.makeText(getApplicationContext(), "Map", Toast.LENGTH_SHORT).show();
-                        Log.d("TAG", "onNavigationItemSelected: Map");
-                        Intent intent4 = new Intent(getApplicationContext(), MapsActivity.class);
-                        startActivity(intent4);
                         return true;
                 }
                 return false;

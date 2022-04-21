@@ -52,11 +52,6 @@ public class HomeScreen extends AppCompatActivity implements NavigationBarView.O
                         Log.d("TAG", "onNavigationItemSelected: Profile");
                         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, profile).commit();
                         return true;
-                    case R.id.Map:
-                        Toast.makeText(getApplicationContext(), "Map", Toast.LENGTH_SHORT).show();
-                        Log.d("TAG", "onNavigationItemSelected: Map");
-                        getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, mapsFragment).commit();
-                        return true;
                 }
                 return false;
             }

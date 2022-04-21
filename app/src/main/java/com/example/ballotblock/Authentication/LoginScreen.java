@@ -123,6 +123,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
                         Intent intent = new Intent(LoginScreen.this, HomePage.class);
                         startActivity(intent);
+                        finish();
                     }
                     else {
                         Toast.makeText(LoginScreen.this, "No Such Username Password exist.", Toast.LENGTH_SHORT).show();

@@ -39,6 +39,14 @@ public class ElectionType extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPreferences = getSharedPreferences("MyFile",0);
+//            check if user is logged in.
+        String accessToken = sharedPreferences.getString("accessToken",null);
+        if(accessToken == null) {
+            Toast.makeText(getApplicationContext(), "Not Logged In.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), LoginScreen.class);
+            startActivity(intent);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_election_type);
 
@@ -79,12 +87,6 @@ public class ElectionType extends AppCompatActivity {
                         Log.d("TAG", "onNavigationItemSelected: Profile");
                         Intent intent3 = new Intent(getApplicationContext(), Profile.class);
                         startActivity(intent3);
-                        return true;
-                    case R.id.Map:
-//                        Toast.makeText(getApplicationContext(), "Map", Toast.LENGTH_SHORT).show();
-                        Log.d("TAG", "onNavigationItemSelected: Map");
-                        Intent intent4 = new Intent(getApplicationContext(), MapsActivity.class);
-                        startActivity(intent4);
                         return true;
                 }
                 return false;
