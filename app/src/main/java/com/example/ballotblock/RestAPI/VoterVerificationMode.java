@@ -1,12 +1,12 @@
 package com.example.ballotblock.RestAPI;
 
 public class VoterVerificationMode {
-    String electionId, voterId, givenId;
+    String electionId, voterId, email;
 
-    public VoterVerificationMode(String electionId, String voterId, String givenId) {
+    public VoterVerificationMode(String electionId, String voterId, String email) {
         this.electionId = electionId;
         this.voterId = voterId;
-        this.givenId = givenId;
+        this.email = email;
     }
 
     public String getElectionId() {
@@ -25,11 +25,11 @@ public class VoterVerificationMode {
         this.voterId = voterId;
     }
 
-    public String getGivenId() {
-        return givenId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setGivenId(String givenId) {
-        this.givenId = givenId;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

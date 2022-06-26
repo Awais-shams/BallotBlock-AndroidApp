@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -61,6 +62,27 @@ public class Vote extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("MyFile",0);
 
         GetCandidates();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.logout) {
+            sharedPreferences = getSharedPreferences("MyFile",0);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.remove("accessToken");
+            editor.apply();
+            Intent intentLogout = new Intent(getApplicationContext(), LoginScreen.class);
+            startActivity(intentLogout);
+            finish();
+        }
+        return true;
     }
 
     public void GetCandidates() {

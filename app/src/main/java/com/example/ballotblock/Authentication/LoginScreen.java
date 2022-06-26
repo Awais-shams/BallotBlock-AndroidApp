@@ -115,10 +115,12 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                         String accessTokenStr = accessToken.getAccessToken();
                         accessTokenStr = firstPart + accessTokenStr;
 
-//                        Saving AccessToken and voterId in shared preferneces
+//                        Saving AccessToken and voterId in shared preferences
+//                        also email for "applying to election" purposes
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("accessToken", accessTokenStr);
                         editor.putString("voterUuid", accessToken.getUuid());
+                        editor.putString("voterEmail", _email);
                         editor.apply();
 
                         Intent intent = new Intent(LoginScreen.this, HomePage.class);
