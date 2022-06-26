@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="@string/update_profile"
+        android:text="User Profile"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -114,21 +114,22 @@
         tools:ignore="TextContrastCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
 
     <TextView
-        android:id="@+id/updOldPassTxt"
+        android:id="@+id/cnicTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:labelFor="@id/updOldPassEdtTxt"
-        android:text="@string/old_password"
+        android:text="CNIC"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.167"
+        app:layout_constraintHorizontal_bias="0.118"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/updEmailEdtTxt" />
+
     <EditText
-        android:id="@+id/updOldPassEdtTxt"
+        android:id="@+id/cnicEdtTxt"
         android:layout_width="325dp"
         android:layout_height="60dp"
         android:background="@drawable/custom_input_text_fields"
@@ -142,40 +143,40 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/updOldPassTxt"
+        app:layout_constraintTop_toBottomOf="@+id/cnicTxt"
         tools:ignore="TextContrastCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
 
-    <TextView
-        android:id="@+id/updNewPassTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:labelFor="@id/updNewPassEdtTxt"
-        android:text="@string/new_password"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.167"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/updOldPassEdtTxt" />
-    <EditText
-        android:id="@+id/updNewPassEdtTxt"
-        android:layout_width="325dp"
-        android:layout_height="60dp"
-        android:background="@drawable/custom_input_text_fields"
-        android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="textVisiblePassword"
-        android:padding="5dp"
-        android:paddingStart="20dp"
-        android:paddingEnd="10dp"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/updNewPassTxt"
-        tools:ignore="TextContrastCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
+<!--    <TextView-->
+<!--        android:id="@+id/updNewPassTxt"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:labelFor="@id/updNewPassEdtTxt"-->
+<!--        android:text="@string/new_password"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.167"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/updOldPassEdtTxt" />-->
+<!--    <EditText-->
+<!--        android:id="@+id/updNewPassEdtTxt"-->
+<!--        android:layout_width="325dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:background="@drawable/custom_input_text_fields"-->
+<!--        android:ems="10"-->
+<!--        android:importantForAutofill="no"-->
+<!--        android:inputType="textVisiblePassword"-->
+<!--        android:padding="5dp"-->
+<!--        android:paddingStart="20dp"-->
+<!--        android:paddingEnd="10dp"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/updNewPassTxt"-->
+<!--        tools:ignore="TextContrastCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />-->
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

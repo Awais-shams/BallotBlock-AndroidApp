@@ -47,6 +47,7 @@ public class ElectionType extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Not Logged In.", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), LoginScreen.class);
             startActivity(intent);
+            finish();
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_election_type);
@@ -122,6 +123,11 @@ public class ElectionType extends AppCompatActivity {
             finish();
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        return;
     }
 
     public void GetElection() {

@@ -156,6 +156,11 @@ public class Wallet extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        return;
+    }
+
     private void setupBouncyCastle() {
         final Provider provider = Security.getProvider(BouncyCastleProvider.PROVIDER_NAME);
         if (provider == null) {

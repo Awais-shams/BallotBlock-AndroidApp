@@ -106,4 +106,9 @@ public class Profile extends AppCompatActivity {
         }
         return true;
     }
+
+    @Override
+    public void onBackPressed() {
+        return;
+    }
 }

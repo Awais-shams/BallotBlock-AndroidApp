@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -40,6 +41,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     EditText email, pass;
     MyRetrofitInterface apiInterface;
     SharedPreferences sharedPreferences;
+    boolean isPressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,28 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
         sharedPreferences = getSharedPreferences("MyFile",0);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (isPressed) {
+//            clear all activity
+            finishAffinity();
+//            exit app
+            System.exit(0);
+        }
+        else {
+            Toast.makeText(this, "Press Back Again to exit.", Toast.LENGTH_SHORT).show();
+            isPressed = true;
+        }
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                isPressed = false;
+            }
+        };
+        new Handler().postDelayed(runnable, 2000);
     }
 
     @Override

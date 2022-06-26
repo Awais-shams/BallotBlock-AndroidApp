@@ -99,18 +99,33 @@ public class HomePage extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        return;
+    }
+
     public void GoToElection(View view) {
         Intent intent = new Intent(getApplicationContext(), ElectionType.class);
         startActivity(intent);
     }
 
-    public void Logout(View view) {
-        sharedPreferences = getSharedPreferences("MyFile",0);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove("accessToken");
-        editor.apply();
-        Intent intent = new Intent(getApplicationContext(), LoginScreen.class);
+//    public void Logout(View view) {
+//        sharedPreferences = getSharedPreferences("MyFile",0);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.remove("accessToken");
+//        editor.apply();
+//        Intent intent = new Intent(getApplicationContext(), LoginScreen.class);
+//        startActivity(intent);
+//        finish();
+//    }
+
+    public void GoToWallet(View view) {
+        Intent intent = new Intent(getApplicationContext(), Wallet.class);
         startActivity(intent);
-        finish();
+    }
+
+    public void GoToProfile(View view) {
+        Intent intent = new Intent(getApplicationContext(), Profile.class);
+        startActivity(intent);
     }
 }

@@ -36,39 +36,56 @@
 
 
     <!--    Election Type Button-->
+
+
+    <!--    FAQ Button-->
+
+    <TextView
+        android:id="@+id/countTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Home Page"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
     <Button
         android:id="@+id/Election_type_btn"
         android:layout_width="330dp"
         android:layout_height="80dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:backgroundTint="@color/themePrimary"
         android:drawableStart="@drawable/resize_ic_election"
         android:drawablePadding="12dp"
         android:gravity="start|center_vertical"
+        android:onClick="GoToElection"
         android:paddingStart="18dp"
         android:paddingEnd="18dp"
-        android:text="@string/election_type"
-        android:onClick="GoToElection"
+        android:text="Elections"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/countTxtView" />
 
-
-    <!--    FAQ Button-->
     <Button
         android:id="@+id/faqBtn"
         android:layout_width="330dp"
         android:layout_height="80dp"
         android:layout_marginTop="52dp"
         android:backgroundTint="@color/themePrimary"
-        android:drawableStart="@drawable/resize_profie_icon"
+        android:drawableStart="@drawable/resize_wallet_icon"
         android:drawablePadding="12dp"
         android:gravity="start|center_vertical"
         android:paddingStart="18dp"
         android:paddingEnd="18dp"
-        android:text="@string/frequently_asked_questions"
+        android:onClick="GoToWallet"
+        android:text="Wallet"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
@@ -76,6 +93,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Election_type_btn" />
 
     <!--    Logout Button-->
+
     <Button
         android:id="@+id/logoutBtn"
         android:layout_width="330dp"
@@ -85,10 +103,10 @@
         android:drawableStart="@drawable/resize_profie_icon"
         android:drawablePadding="12dp"
         android:gravity="start|center_vertical"
+        android:onClick="GoToProfile"
         android:paddingStart="18dp"
         android:paddingEnd="18dp"
-        android:text="@string/logout"
-        android:onClick="Logout"
+        android:text="Profile"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"

@@ -67,7 +67,7 @@
         android:id="@+id/createWalletBtn"
         android:layout_width="300dp"
         android:layout_height="60dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="64dp"
         android:background="@drawable/login_custom_button"
         android:onClick="CreateWallet"
         android:text="@string/create_wallet"
@@ -114,22 +114,6 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CreateWalletTxt" />
-
-    <Button
-        android:id="@+id/sendEtherBtn"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/login_custom_button"
-        android:onClick="SendEther"
-        android:text="@string/send_ether"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/getBalanceBtn2" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
