@@ -18,6 +18,9 @@ import com.example.ballotblock.Pages.com.example.ballotblock.Election;
 import com.example.ballotblock.R;
 import com.example.ballotblock.RestAPI.MyRetrofitInterface;
 import com.example.ballotblock.RestAPI.VoteCandidatesModel;
+import com.example.ballotblock.RestAPI.VoteCreateModel;
+import com.example.ballotblock.RestAPI.VoterVerificationMode;
+import com.example.ballotblock.RestAPI.VoterVerifyRespModel;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.web3j.crypto.Credentials;
@@ -35,6 +38,11 @@ import java.security.Security;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAdapter.MyViewHolder> {
     ArrayList<VoteCandidatesModel> myList;
     Context context;
@@ -45,11 +53,14 @@ public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAd
 //    electionContractAddress will remain same for all list of candidates, because candidates are filtered and shown for only that specific election.
     String electionContractAddress;
     MyRetrofitInterface apiInterface;
+    String txHash;
+    String electionUuid;
 
-    public VoteCandidatesAdapter(ArrayList<VoteCandidatesModel> myList, Context context, String electionContractAddress) {
+    public VoteCandidatesAdapter(ArrayList<VoteCandidatesModel> myList, Context context, String electionContractAddress, String electionUuid) {
         this.myList = myList;
         this.context = context;
         this.electionContractAddress = electionContractAddress;
+        this.electionUuid = electionUuid;
     }
 
     @NonNull
@@ -184,7 +195,7 @@ public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAd
             try {
                 TransactionReceipt transactionReceipt = contract.vote(candidateAddress).sendAsync().get();
                 result = " gasUsed: " + transactionReceipt.getGasUsed() + " tranasctionHash: " + transactionReceipt.getTransactionHash();
-
+                txHash = transactionReceipt.getTransactionHash();
                 Toast.makeText(context.getApplicationContext(), "Successfully Voted... ", Toast.LENGTH_LONG).show();
                 Toast.makeText(context.getApplicationContext(), "gas used: " + transactionReceipt.getGasUsed(), Toast.LENGTH_LONG).show();
                 Toast.makeText(context.getApplicationContext(), "transaction hash: " + transactionReceipt.getTransactionHash(), Toast.LENGTH_LONG).show();
@@ -216,6 +227,25 @@ public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAd
 //            call api to send txHash etc to DB
             String accessToken = sharedPreferences.getString("accessToken","");
 
+
+            VoteCreateModel voteCreateModel = new VoteCreateModel(walletAddress, candidateAddress, txHash, electionUuid);
+            apiInterface.voteCreate(accessToken, voteCreateModel).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if(response.isSuccessful()) {
+//                        what to do after vote/create api response ?
+                        Toast.makeText(context.getApplicationContext(), "Vote Details sent to DB.", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(context.getApplicationContext(), "Vote Created API not returned successfully.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Toast.makeText(context.getApplicationContext(), "API fetch failed.", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         private void setupBouncyCastle() {

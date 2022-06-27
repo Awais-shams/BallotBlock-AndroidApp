@@ -75,6 +75,7 @@ public class Wallet extends AppCompatActivity {
         setContentView(R.layout.activity_wallet);
 
         walletAddress = findViewById(R.id.CreateWalletTxt);
+        walletAddress.setEnabled(false);
 
         toolbar = findViewById(R.id.myToolbar);
         setSupportActionBar(toolbar);
@@ -133,6 +134,9 @@ public class Wallet extends AppCompatActivity {
         walletDir  = new File(walletPath);
 
         sharedPreferences = getSharedPreferences("MyFile",0);
+
+        String walletAddressSh = sharedPreferences.getString("ethAddress","");
+        walletAddress.setText(walletAddressSh);
     }
 
     @Override

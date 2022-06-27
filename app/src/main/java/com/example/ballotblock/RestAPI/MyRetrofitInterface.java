@@ -3,6 +3,7 @@ package com.example.ballotblock.RestAPI;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -47,4 +48,9 @@ public interface MyRetrofitInterface {
 //    for displaying Voter Profile Details, called in Pages/Profile
     @GET("voter/{uuid}")
     Call<ArrayList<GetVoterDetailsModel>> getVoterDetails(@Header("Cookie") String accessToken, @Path("uuid") String uuid);
+
+//    for sending POST request after vote has been casted by voter, called in Pages/VoteCandidatesAdapter
+    @POST("vote/Create")
+    Call<ResponseBody> voteCreate(@Header("Cookie") String accessToken,
+                                  @Body VoteCreateModel voteCreateModel);
 }

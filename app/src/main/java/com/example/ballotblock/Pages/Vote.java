@@ -36,6 +36,7 @@ public class Vote extends AppCompatActivity {
     VoteCandidatesAdapter myAdapter;
     MyRetrofitInterface apiInterface;
     SharedPreferences sharedPreferences;
+    String electionUuid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +116,7 @@ public class Vote extends AppCompatActivity {
 
 //        get filtered candidates
         Intent intent = getIntent();
-        String electionUuid = intent.getStringExtra("electionUuid");
+        electionUuid = intent.getStringExtra("electionUuid");
         String electionContractAddress = intent.getStringExtra("contractAddress");
 
 
@@ -148,7 +149,7 @@ public class Vote extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Vote.this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        myAdapter = new VoteCandidatesAdapter(candidatesData, getApplicationContext(), electionContractAddress);
+        myAdapter = new VoteCandidatesAdapter(candidatesData, getApplicationContext(), electionContractAddress, electionUuid);
         recyclerView.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();
     }
