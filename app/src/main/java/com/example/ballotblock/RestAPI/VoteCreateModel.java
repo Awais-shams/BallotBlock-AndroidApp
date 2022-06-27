@@ -3,13 +3,13 @@ package com.example.ballotblock.RestAPI;
 public class VoteCreateModel {
     String voterAddress;
     String candidateAddress;
-    String txhash;
+    String txHash;
     String electionId;
 
-    public VoteCreateModel(String voterAddress, String candidateAddress, String txhash, String electionId) {
+    public VoteCreateModel(String voterAddress, String candidateAddress, String txHash, String electionId) {
         this.voterAddress = voterAddress;
         this.candidateAddress = candidateAddress;
-        this.txhash = txhash;
+        this.txHash = txHash;
         this.electionId = electionId;
     }
 
@@ -29,12 +29,12 @@ public class VoteCreateModel {
         this.candidateAddress = candidateAddress;
     }
 
-    public String getTxhash() {
-        return txhash;
+    public String getTxHash() {
+        return txHash;
     }
 
-    public void setTxhash(String txhash) {
-        this.txhash = txhash;
+    public void setTxHash(String txHash) {
+        this.txHash = txHash;
     }
 
     public String getElectionId() {

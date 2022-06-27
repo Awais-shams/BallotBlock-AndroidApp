@@ -10,6 +10,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -21,7 +22,7 @@ public interface MyRetrofitInterface {
 
 //    for registering voters, called in Authentication/Register3
     @POST("voter/create")
-    Call<RegisterVoterModel> registerVoter(@Body RegisterVoterModel cred);
+    Call<RegisterVoterRespModel> registerVoter(@Body RegisterVoterModel cred);
 
 //    for displaying election cards, called in Election
     @GET("election")
@@ -50,7 +51,12 @@ public interface MyRetrofitInterface {
     Call<ArrayList<GetVoterDetailsModel>> getVoterDetails(@Header("Cookie") String accessToken, @Path("uuid") String uuid);
 
 //    for sending POST request after vote has been casted by voter, called in Pages/VoteCandidatesAdapter
-    @POST("vote/Create")
-    Call<ResponseBody> voteCreate(@Header("Cookie") String accessToken,
+    @POST("vote/create/")
+    Call<VoteCreateRespModel> voteCreate(@Header("Cookie") String accessToken,
                                   @Body VoteCreateModel voteCreateModel);
+
+//    PATCH api to update walletAddress of voter, once voter creates it
+    @PATCH("voter/addWallet/")
+    Call<AddWalletRespModel> addWallet(@Header("Cookie") String accessToken,
+                                         @Body AddWalletModel addWalletModel);
 }

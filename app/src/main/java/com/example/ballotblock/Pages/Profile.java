@@ -19,6 +19,8 @@ import com.example.ballotblock.RestAPI.GetVoterDetailsModel;
 import com.example.ballotblock.RestAPI.MyRetrofit;
 import com.example.ballotblock.RestAPI.MyRetrofitInterface;
 import com.example.ballotblock.RestAPI.VoteCandidatesModel;
+import com.example.ballotblock.RestAPI.VoteCreateModel;
+import com.example.ballotblock.RestAPI.VoteCreateRespModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -98,6 +100,7 @@ public class Profile extends AppCompatActivity {
         });
         apiInterface = MyRetrofit.getRetrofit().create(MyRetrofitInterface.class);
         showData();
+//        TestAPI();
     }
 
     @Override
@@ -152,8 +155,35 @@ public class Profile extends AppCompatActivity {
                 Toast.makeText(Profile.this, "Error in fetching API!!!", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
+
+//    public void TestAPI() {
+//        String accessToken = sharedPreferences.getString("accessToken","");
+//
+//        String walletAddress = "0xd6ef00de920caa516d23b182111f67f10315c9cd";
+//        String candidateAddress = "0xB847A8903f74b17CB8dE5f8769f7A8Fd5eFC9860";
+//        String txHash = "0x4246628006c18a5d149d1ea8654d5fb91558c9aa3fdde15120bb4184f4f5fb69";
+//        String electionUuid = "e4fb8058-8a58-4a26-83ec-f8c64609cfa3";
+//
+//        VoteCreateModel voteCreateModel = new VoteCreateModel(walletAddress, candidateAddress, txHash, electionUuid);
+//        apiInterface.voteCreate(accessToken, voteCreateModel).enqueue(new Callback<VoteCreateRespModel>() {
+//            @Override
+//            public void onResponse(Call<VoteCreateRespModel> call, Response<VoteCreateRespModel> response) {
+//                if(response.isSuccessful()) {
+////                        what to do after vote/create api response ?
+//                    Toast.makeText(Profile.this, "Vote Details saved in DB.", Toast.LENGTH_SHORT).show();
+//                }
+//                else {
+//                    Toast.makeText(Profile.this, "Vote Created API response error.", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<VoteCreateRespModel> call, Throwable t) {
+//                Toast.makeText(Profile.this, "API fetch failed.", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     public void SetDetails(ArrayList<GetVoterDetailsModel> voterDetails) {
 //        Toast.makeText(Profile.this, voterDetails.get(0).getFirstname(), Toast.LENGTH_SHORT).show();

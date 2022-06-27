@@ -127,31 +127,31 @@ public class Register3 extends AppCompatActivity {
         String dob = sharedPreferences.getString("K6","");
         String address = sharedPreferences.getString("K7","");
 
-        RegisterVoterModel cred = new RegisterVoterModel(fName, lName, newEmail, newPass, dob, cnic, address);
-        apiInterface.registerVoter(cred);
-        Call<RegisterVoterModel> myPost = apiInterface.registerVoter(cred);
-        myPost.enqueue(new Callback<RegisterVoterModel>() {
-            @Override
-            public void onResponse(Call<RegisterVoterModel> call, Response<RegisterVoterModel> response) {
-                if (response.isSuccessful()) {
-                    if(response.body() != null) {
-                        Toast.makeText(Register3.this, "Voter Registered...", Toast.LENGTH_SHORT).show();
-                        Intent intent3 = new Intent(Register3.this, LoginScreen.class);
-                        startActivity(intent3);
-                    }
-                    else {
-                        Toast.makeText(Register3.this, "Cannot Register Voter. API Response body is null", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else {
-                    Toast.makeText(Register3.this, "Problem in Voter Credentials format. Error in API response, response not successful.", Toast.LENGTH_SHORT).show();
-                }
-            }
-            @Override
-            public void onFailure(Call<RegisterVoterModel> call, Throwable t) {
-                Toast.makeText(Register3.this, "Error in fetching API!!!", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        RegisterVoterModel cred = new RegisterVoterModel(fName, lName, newEmail, newPass, dob, cnic, address);
+//        apiInterface.registerVoter(cred);
+//        Call<RegisterVoterModel> myPost = apiInterface.registerVoter(cred);
+//        myPost.enqueue(new Callback<RegisterVoterModel>() {
+//            @Override
+//            public void onResponse(Call<RegisterVoterModel> call, Response<RegisterVoterModel> response) {
+//                if (response.isSuccessful()) {
+//                    if(response.body() != null) {
+//                        Toast.makeText(Register3.this, "Voter Registered...", Toast.LENGTH_SHORT).show();
+//                        Intent intent3 = new Intent(Register3.this, LoginScreen.class);
+//                        startActivity(intent3);
+//                    }
+//                    else {
+//                        Toast.makeText(Register3.this, "Cannot Register Voter. API Response body is null", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//                else {
+//                    Toast.makeText(Register3.this, "Problem in Voter Credentials format. Error in API response, response not successful.", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<RegisterVoterModel> call, Throwable t) {
+//                Toast.makeText(Register3.this, "Error in fetching API!!!", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
 }

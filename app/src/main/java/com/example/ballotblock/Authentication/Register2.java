@@ -16,6 +16,7 @@ import com.example.ballotblock.R;
 import com.example.ballotblock.RestAPI.MyRetrofit;
 import com.example.ballotblock.RestAPI.MyRetrofitInterface;
 import com.example.ballotblock.RestAPI.RegisterVoterModel;
+import com.example.ballotblock.RestAPI.RegisterVoterRespModel;
 
 import java.util.Calendar;
 import java.util.regex.Matcher;
@@ -60,6 +61,12 @@ public class Register2 extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         month = month+1;
+                        if(day < 10) {
+                            day = Integer.parseInt("0"+day);
+                        }
+                        if(month < 10) {
+                            month = Integer.parseInt("0"+month);
+                        }
                         String date = day+"-"+month+"-"+year;
                         edtdob.setText(date);
                     }
@@ -178,12 +185,13 @@ public class Register2 extends AppCompatActivity {
     }
 
     public void createUser() {
+        dob = "12-08-2020";
         RegisterVoterModel cred = new RegisterVoterModel(fName, lName, newEmail, newPass, dob, cnic, address);
         apiInterface.registerVoter(cred);
-        Call<RegisterVoterModel> myPost = apiInterface.registerVoter(cred);
-        myPost.enqueue(new Callback<RegisterVoterModel>() {
+        Call<RegisterVoterRespModel> myPost = apiInterface.registerVoter(cred);
+        myPost.enqueue(new Callback<RegisterVoterRespModel>() {
             @Override
-            public void onResponse(Call<RegisterVoterModel> call, Response<RegisterVoterModel> response) {
+            public void onResponse(Call<RegisterVoterRespModel> call, Response<RegisterVoterRespModel> response) {
                 if (response.isSuccessful()) {
                     if(response.body() != null) {
                         Toast.makeText(Register2.this, "Voter Registered...", Toast.LENGTH_SHORT).show();
@@ -195,11 +203,12 @@ public class Register2 extends AppCompatActivity {
                     }
                 }
                 else {
-                    Toast.makeText(Register2.this, "Problem in Voter Credentials format. Error in API response, response not successful.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register2.this, "Error in API response, response not successful.", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
-            public void onFailure(Call<RegisterVoterModel> call, Throwable t) {
+            public void onFailure(Call<RegisterVoterRespModel> call, Throwable t) {
                 Toast.makeText(Register2.this, "Error in fetching API!!!", Toast.LENGTH_SHORT).show();
             }
         });

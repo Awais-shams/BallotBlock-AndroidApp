@@ -15,8 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ballotblock.Pages.HomePage;
+import com.example.ballotblock.Pages.Profile;
 import com.example.ballotblock.R;
 import com.example.ballotblock.RestAPI.AccessToken;
+import com.example.ballotblock.RestAPI.GetVoterDetailsModel;
 import com.example.ballotblock.RestAPI.MyRESTAPIModel;
 import com.example.ballotblock.RestAPI.MyRetrofit;
 import com.example.ballotblock.RestAPI.MyRetrofitInterface;
@@ -30,6 +32,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import jnr.constants.platform.Access;
 import retrofit2.Call;
@@ -125,11 +129,6 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
             public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
                 if (response.isSuccessful()) {
                     if(response.body() != null) {
-                        Toast.makeText(LoginScreen.this, "Login Successful...", Toast.LENGTH_SHORT).show();
-//                        Log.d("tagg", "Access Token: " + response.body());
-//                        Log.d("tagg", "Access Token: " + response.message());
-//                        Log.d("tagg", "Access Token: " + response.errorBody());
-//                        Log.d("tagg", "Access Token: " + response.raw());
                         AccessToken accessToken = response.body();
                         Log.d("tagg", "message: " + accessToken.getMessage());
                         Log.d("tagg", "accessToken: " + accessToken.getAccessToken());
@@ -147,6 +146,11 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                         editor.putString("voterEmail", _email);
                         editor.apply();
 
+//                        get voter details voter/:uuid api and store wallet address from it
+                        getVoterDetails();
+
+                        Toast.makeText(LoginScreen.this, "Login Successful...", Toast.LENGTH_SHORT).show();
+
                         Intent intent = new Intent(LoginScreen.this, HomePage.class);
                         startActivity(intent);
                         finish();
@@ -162,6 +166,38 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
             @Override
             public void onFailure(Call<AccessToken> call, Throwable t) {
+                Toast.makeText(LoginScreen.this, "Error in fetching API!!!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void getVoterDetails() {
+        sharedPreferences = getSharedPreferences("MyFile",0);
+        String accessToken = sharedPreferences.getString("accessToken","");
+        String voterUuid = sharedPreferences.getString("voterUuid",null);
+
+        apiInterface.getVoterDetails(accessToken, voterUuid).enqueue(new Callback<ArrayList<GetVoterDetailsModel>>() {
+            @Override
+            public void onResponse(Call<ArrayList<GetVoterDetailsModel>> call, Response<ArrayList<GetVoterDetailsModel>> response) {
+                if (response.isSuccessful()) {
+                    if(response.body().size() > 0) {
+                        ArrayList<GetVoterDetailsModel> voterDetails = response.body();
+                        String walletAddress = voterDetails.get(0).getWalletAddress();
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("ethAddress", walletAddress);
+                        editor.apply();
+                    }
+                    else {
+                        Toast.makeText(LoginScreen.this, "No details found for voter.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    Toast.makeText(LoginScreen.this, "Problem in GetVoterDetails API format. Error in API response, response not successful.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<GetVoterDetailsModel>> call, Throwable t) {
                 Toast.makeText(LoginScreen.this, "Error in fetching API!!!", Toast.LENGTH_SHORT).show();
             }
         });

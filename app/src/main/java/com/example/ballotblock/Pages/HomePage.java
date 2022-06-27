@@ -91,6 +91,9 @@ public class HomePage extends AppCompatActivity {
             sharedPreferences = getSharedPreferences("MyFile",0);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.remove("accessToken");
+            editor.remove("ethAddress");
+            editor.remove("voterUuid");
+            editor.remove("voterEmail");
             editor.apply();
             Intent intentLogout = new Intent(getApplicationContext(), LoginScreen.class);
             startActivity(intentLogout);

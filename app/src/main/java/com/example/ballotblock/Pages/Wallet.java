@@ -16,6 +16,11 @@ import android.widget.Toast;
 
 import com.example.ballotblock.Authentication.LoginScreen;
 import com.example.ballotblock.R;
+import com.example.ballotblock.RestAPI.AddWalletModel;
+import com.example.ballotblock.RestAPI.AddWalletRespModel;
+import com.example.ballotblock.RestAPI.MyRetrofit;
+import com.example.ballotblock.RestAPI.MyRetrofitInterface;
+import com.example.ballotblock.RestAPI.VoteCreateRespModel;
 import com.example.ballotblock.navigation.Main_Profile;
 import com.example.ballotblock.navigation.MapsActivity;
 import com.example.ballotblock.navigation.VoteNow;
@@ -50,6 +55,10 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class Wallet extends AppCompatActivity {
     Toolbar toolbar;
     EditText walletAddress;
@@ -59,7 +68,9 @@ public class Wallet extends AppCompatActivity {
     String password, walletPath;
     File walletDir;
     String fileName;
+    String voterUuid;
     SharedPreferences sharedPreferences;
+    MyRetrofitInterface apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,9 +145,12 @@ public class Wallet extends AppCompatActivity {
         walletDir  = new File(walletPath);
 
         sharedPreferences = getSharedPreferences("MyFile",0);
+        apiInterface = MyRetrofit.getRetrofit().create(MyRetrofitInterface.class);
 
-        String walletAddressSh = sharedPreferences.getString("ethAddress","");
+        String walletAddressSh = sharedPreferences.getString("ethAddress", null);
         walletAddress.setText(walletAddressSh);
+
+        voterUuid = sharedPreferences.getString("voterUuid", null);
     }
 
     @Override
@@ -189,6 +203,7 @@ public class Wallet extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("MyFile",0);
 //            check if wallet is already created or not
         ethAddress = sharedPreferences.getString("ethAddress",null);
+
         if(ethAddress != null) {
             Toast.makeText(getApplicationContext(), "Wallet already created before.", Toast.LENGTH_SHORT).show();
             return;
@@ -210,16 +225,41 @@ public class Wallet extends AppCompatActivity {
             Log.d("tagg", "EC Key Pair PrivateKey: " + ecKeyPair.getPrivateKey().toString(16));
 //            Log.d("tagg", "EC Key Pair PublicKey: " + ecKeyPair.getPublicKey().toString(16));
 
-
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("ethAddress", ethAddress);
             editor.putString("walletDir", String.valueOf(walletDir));
             editor.apply();
+
+            patchWallet();
         }
         catch (Exception e){
             Toast.makeText(this, "Error. Could not create Wallet.", Toast.LENGTH_LONG).show();
             Log.d("tagg", "Wallet not created");
         }
+    }
+
+    public void patchWallet() {
+//            call PATCH api request to update walletAddress of voter in DB
+        String accessToken = sharedPreferences.getString("accessToken","");
+        Log.d("tagg", "voterUuid: " + voterUuid);
+        Log.d("tagg", "ethAddress: " + ethAddress);
+        AddWalletModel addWalletModel = new AddWalletModel(voterUuid, ethAddress);
+
+        apiInterface.addWallet(accessToken, addWalletModel).enqueue(new Callback<AddWalletRespModel>() {
+            @Override
+            public void onResponse(Call<AddWalletRespModel> call, Response<AddWalletRespModel> response) {
+                if(response.isSuccessful()) {
+                    Toast.makeText(Wallet.this, "Wallet Address stored in DB.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(Wallet.this, "PATCH Add Wallet API not returned successfully.", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<AddWalletRespModel> call, Throwable t) {
+                Toast.makeText(Wallet.this, "API fetch failed.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void MyAddress(View view) {
@@ -228,14 +268,14 @@ public class Wallet extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("MyFile",0);
         String walletDirSP = sharedPreferences.getString("walletDir","");
+        String ethAddress = sharedPreferences.getString("ethAddress",null);
 
-//        jisme 0.60 eth hain, rinkeby wallet
 //        walletDir = new File("/data/user/0/com.example.ballotblock/files/UTC--2022-04-16T13-24-46.130000000Z--d47b9fc80449c5eda71746a90c5f5a0870148fc5.json");
         walletDir = new File(walletDirSP);
-
         try {
             Credentials credentials = WalletUtils.loadCredentials(password, walletDir);
-            Toast.makeText(this, "Your address is " + credentials.getAddress(), Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, "Your address is " + credentials.getAddress(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Your address is " + ethAddress, Toast.LENGTH_LONG).show();
             Log.d("tagg", "Wallet Address: " + credentials.getAddress());
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("ethAddress", credentials.getAddress());

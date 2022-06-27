@@ -1,28 +1,26 @@
 package com.example.ballotblock.RestAPI;
 
-public class GetVoterDetailsModel {
-    String uuid;
-    String firstname;
-    String lastname;
-    String email;
-    String walletAddress;
-    String cnic;
-    String dob;
-    String permanentAddress;
-    String createdAt;
-    String updatedAt;
+public class RegisterVoterRespModel {
+    private String uuid;
+    private String firstname;
+    private String lastname;
+    private String email;
+    private String cnic;
+    private String dob;
+    private String permanentAddress;
+    private String updatedAt;
+    private String createdAt;
 
-    public GetVoterDetailsModel(String uuid, String firstname, String lastname, String email, String walletAddress, String cnic, String dob, String permanentAddress, String createdAt, String updatedAt) {
+    public RegisterVoterRespModel(String uuid, String firstname, String lastname, String email, String cnic, String dob, String permanentAddress, String updatedAt, String createdAt) {
         this.uuid = uuid;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
-        this.walletAddress = walletAddress;
         this.cnic = cnic;
         this.dob = dob;
         this.permanentAddress = permanentAddress;
-        this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
     }
 
     public String getUuid() {
@@ -57,14 +55,6 @@ public class GetVoterDetailsModel {
         this.email = email;
     }
 
-    public String getWalletAddress() {
-        return walletAddress;
-    }
-
-    public void setWalletAddress(String walletAddress) {
-        this.walletAddress = walletAddress;
-    }
-
     public String getCnic() {
         return cnic;
     }
@@ -89,19 +79,19 @@ public class GetVoterDetailsModel {
         this.permanentAddress = permanentAddress;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public String getUpdatedAt() {
         return updatedAt;
     }
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 }

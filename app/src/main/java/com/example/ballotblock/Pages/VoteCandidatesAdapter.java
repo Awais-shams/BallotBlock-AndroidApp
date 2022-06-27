@@ -16,9 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ballotblock.Pages.com.example.ballotblock.Election;
 import com.example.ballotblock.R;
+import com.example.ballotblock.RestAPI.MyRetrofit;
 import com.example.ballotblock.RestAPI.MyRetrofitInterface;
 import com.example.ballotblock.RestAPI.VoteCandidatesModel;
 import com.example.ballotblock.RestAPI.VoteCreateModel;
+import com.example.ballotblock.RestAPI.VoteCreateRespModel;
 import com.example.ballotblock.RestAPI.VoterVerificationMode;
 import com.example.ballotblock.RestAPI.VoterVerifyRespModel;
 
@@ -131,6 +133,7 @@ public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAd
             setupBouncyCastle();
 
             sharedPreferences = context.getSharedPreferences("MyFile",0);
+            apiInterface = MyRetrofit.getRetrofit().create(MyRetrofitInterface.class);
             walletAddress = sharedPreferences.getString("ethAddress",null);
 
             //        Infura Rinkeby Network url
@@ -185,7 +188,7 @@ public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAd
 //            Future<String> name = (Future<String>) contract.electionName().sendAsync();
 //            electionName = name.get();
             Log.d("tagg", electionName);
-            Log.d("tagg", "User's address: " +  ethAddress);
+            Log.d("tagg", "User's address: " +  walletAddress);
 
 //            candidateAddress = "0xb18DCb383237b27fD770f7BE4DA8B1fCd9BBb1d3";
 
@@ -216,36 +219,38 @@ public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAd
             }
 
 //            getting address of candidate which user casted vote to.
-            try {
-                Log.d("tagg", "Candidate Address: " + contract.candidateAddresses(BigInteger.valueOf(0)).sendAsync().get());
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            //                Log.d("tagg", "Candidate Address: " + contract.candidateAddresses(BigInteger.valueOf(0)).sendAsync().get());
+            Log.d("tagg", "Candidate Address: " + candidateAddress);
 
 //            call api to send txHash etc to DB
             String accessToken = sharedPreferences.getString("accessToken","");
 
+            Log.d("tagg", "walletAddress: " + walletAddress);
+            Log.d("tagg", "candidateAddress: " + candidateAddress);
+            Log.d("tagg", "txHash: " + txHash);
+            Log.d("tagg", "electionUuid: " + electionUuid);
 
             VoteCreateModel voteCreateModel = new VoteCreateModel(walletAddress, candidateAddress, txHash, electionUuid);
-            apiInterface.voteCreate(accessToken, voteCreateModel).enqueue(new Callback<ResponseBody>() {
+            apiInterface.voteCreate(accessToken, voteCreateModel).enqueue(new Callback<VoteCreateRespModel>() {
                 @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                public void onResponse(Call<VoteCreateRespModel> call, Response<VoteCreateRespModel> response) {
                     if(response.isSuccessful()) {
 //                        what to do after vote/create api response ?
-                        Toast.makeText(context.getApplicationContext(), "Vote Details sent to DB.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context.getApplicationContext(), "Vote Details saved in DB.", Toast.LENGTH_SHORT).show();
+                        Log.d("tagg", "Vote Details saved in DB. ");
                     }
                     else {
-                        Toast.makeText(context.getApplicationContext(), "Vote Created API not returned successfully.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context.getApplicationContext(), "Vote Created API error in response.", Toast.LENGTH_SHORT).show();
+                        Log.d("tagg", "Vote Created API error in response. ");
                     }
                 }
 
                 @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                public void onFailure(Call<VoteCreateRespModel> call, Throwable t) {
                     Toast.makeText(context.getApplicationContext(), "API fetch failed.", Toast.LENGTH_SHORT).show();
                 }
             });
+
         }
 
         private void setupBouncyCastle() {
