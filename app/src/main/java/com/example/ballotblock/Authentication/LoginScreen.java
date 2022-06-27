@@ -138,13 +138,18 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                         String accessTokenStr = accessToken.getAccessToken();
                         accessTokenStr = firstPart + accessTokenStr;
 
+                        String walletDirectory = sharedPreferences.getString(_email,null);
+
 //                        Saving AccessToken and voterId in shared preferences
 //                        also email for "applying to election" purposes
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("accessToken", accessTokenStr);
                         editor.putString("voterUuid", accessToken.getUuid());
                         editor.putString("voterEmail", _email);
+                        editor.putString("walletDir", walletDirectory);
                         editor.apply();
+
+
 
 //                        get voter details voter/:uuid api and store wallet address from it
                         getVoterDetails();

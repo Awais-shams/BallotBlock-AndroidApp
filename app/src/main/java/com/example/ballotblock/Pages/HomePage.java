@@ -94,6 +94,7 @@ public class HomePage extends AppCompatActivity {
             editor.remove("ethAddress");
             editor.remove("voterUuid");
             editor.remove("voterEmail");
+            editor.remove("walletDir");
             editor.apply();
             Intent intentLogout = new Intent(getApplicationContext(), LoginScreen.class);
             startActivity(intentLogout);

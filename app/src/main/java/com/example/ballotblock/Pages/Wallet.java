@@ -225,9 +225,12 @@ public class Wallet extends AppCompatActivity {
             Log.d("tagg", "EC Key Pair PrivateKey: " + ecKeyPair.getPrivateKey().toString(16));
 //            Log.d("tagg", "EC Key Pair PublicKey: " + ecKeyPair.getPublicKey().toString(16));
 
+            String email = sharedPreferences.getString("voterEmail",null);
+
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("ethAddress", ethAddress);
             editor.putString("walletDir", String.valueOf(walletDir));
+            editor.putString(email, String.valueOf(walletDir));
             editor.apply();
 
             patchWallet();
@@ -267,7 +270,11 @@ public class Wallet extends AppCompatActivity {
         password = "Pass123";
 
         sharedPreferences = getSharedPreferences("MyFile",0);
-        String walletDirSP = sharedPreferences.getString("walletDir","");
+        String walletDirSP = sharedPreferences.getString("walletDir", null);
+        if(walletDirSP == null) {
+            Toast.makeText(this, "Could not Fetch Wallet Directory... ", Toast.LENGTH_LONG).show();
+            return;
+        }
         String ethAddress = sharedPreferences.getString("ethAddress",null);
 
 //        walletDir = new File("/data/user/0/com.example.ballotblock/files/UTC--2022-04-16T13-24-46.130000000Z--d47b9fc80449c5eda71746a90c5f5a0870148fc5.json");
@@ -289,9 +296,15 @@ public class Wallet extends AppCompatActivity {
     public void getBalance(Web3j client, String ethAddress) {
         sharedPreferences = getSharedPreferences("MyFile",0);
 
+        String walletDirSP = sharedPreferences.getString("walletDir", null);
+        if(walletDirSP == null) {
+            Toast.makeText(this, "Could not Fetch Balance... ", Toast.LENGTH_LONG).show();
+            return;
+        }
+
 //        neeche address jisme 0.6 eth parre hue, link also open in browser of etherscan
 //        ethAddress = "0xD47B9fC80449C5EDA71746a90C5F5a0870148fc5";
-        ethAddress = sharedPreferences.getString("ethAddress","");
+        ethAddress = sharedPreferences.getString("ethAddress", null);
 
         EthGetBalance balanceResponse = null;
         try {
