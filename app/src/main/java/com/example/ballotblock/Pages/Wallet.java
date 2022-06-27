@@ -79,7 +79,7 @@ public class Wallet extends AppCompatActivity {
         toolbar = findViewById(R.id.myToolbar);
         setSupportActionBar(toolbar);
 //        for back button, we can also customize back btn - to customize see link bookmarked
-        getSupportActionBar().setTitle("Wallet");
+        getSupportActionBar().setTitle("BallotBlock");
 
 //        Bottom Navigation Bar
         BottomNavigationView bottomNavigationView =  findViewById(R.id.bottomNavigation);

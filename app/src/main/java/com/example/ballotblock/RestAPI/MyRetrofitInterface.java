@@ -44,5 +44,7 @@ public interface MyRetrofitInterface {
     Call<VoterVerifyRespModel> isVoterVerification(@Header("Cookie") String accessToken,
                                              @Body VoterVerificationMode voterVerificationMode);
 
-
+//    for displaying Voter Profile Details, called in Pages/Profile
+    @GET("voter/{uuid}")
+    Call<ArrayList<GetVoterDetailsModel>> getVoterDetails(@Header("Cookie") String accessToken, @Path("uuid") String uuid);
 }

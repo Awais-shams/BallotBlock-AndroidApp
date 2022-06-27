@@ -11,20 +11,27 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.ballotblock.Authentication.LoginScreen;
 import com.example.ballotblock.R;
-import com.example.ballotblock.navigation.Main_Profile;
-import com.example.ballotblock.navigation.MapsActivity;
-import com.example.ballotblock.navigation.VoteNow;
+import com.example.ballotblock.RestAPI.GetVoterDetailsModel;
+import com.example.ballotblock.RestAPI.MyRetrofit;
+import com.example.ballotblock.RestAPI.MyRetrofitInterface;
+import com.example.ballotblock.RestAPI.VoteCandidatesModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Profile extends AppCompatActivity {
     Toolbar toolbar;
-    EditText fullName, email;
+    EditText fullName, email, cnic, address;
     SharedPreferences sharedPreferences;
+    MyRetrofitInterface apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +49,16 @@ public class Profile extends AppCompatActivity {
         toolbar = findViewById(R.id.myToolbar);
         setSupportActionBar(toolbar);
         //        for back button, we can also customize back btn - to customize see link bookmarked
-        getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setTitle("BallotBlock");
 
         fullName = findViewById(R.id.updNameEdtTxt);
+        fullName.setEnabled(false);
         email = findViewById(R.id.updEmailEdtTxt);
+        email.setEnabled(false);
+        cnic = findViewById(R.id.cnicEdtTxt);
+        cnic.setEnabled(false);
+        address = findViewById(R.id.addressEdtTxt);
+        address.setEnabled(false);
 
         //        Bottom Navigation Bar
         BottomNavigationView bottomNavigationView =  findViewById(R.id.bottomNavigation);
@@ -83,7 +96,8 @@ public class Profile extends AppCompatActivity {
                 return false;
             }
         });
-
+        apiInterface = MyRetrofit.getRetrofit().create(MyRetrofitInterface.class);
+        showData();
     }
 
     @Override
@@ -110,5 +124,52 @@ public class Profile extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         return;
+    }
+
+    public void showData() {
+        String accessToken = sharedPreferences.getString("accessToken","");
+//        Log.d("tagg", "Access Token in Election Type: " + accessToken);
+        String voterUuid = sharedPreferences.getString("voterUuid",null);
+
+        apiInterface.getVoterDetails(accessToken, voterUuid).enqueue(new Callback<ArrayList<GetVoterDetailsModel>>() {
+            @Override
+            public void onResponse(Call<ArrayList<GetVoterDetailsModel>> call, Response<ArrayList<GetVoterDetailsModel>> response) {
+                if (response.isSuccessful()) {
+                    if(response.body().size() > 0) {
+                        SetDetails(response.body());
+                    }
+                    else {
+                        Toast.makeText(Profile.this, "No details found for voter.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    Toast.makeText(Profile.this, "Problem in GetVoterDetails API format. Error in API response, response not successful.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<GetVoterDetailsModel>> call, Throwable t) {
+                Toast.makeText(Profile.this, "Error in fetching API!!!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    public void SetDetails(ArrayList<GetVoterDetailsModel> voterDetails) {
+//        Toast.makeText(Profile.this, voterDetails.get(0).getFirstname(), Toast.LENGTH_SHORT).show();
+
+        String firstName = voterDetails.get(0).getFirstname();
+        String lastName = voterDetails.get(0).getLastname();
+        String fullnameS = firstName+" "+lastName;
+        fullName.setText(fullnameS);
+
+        String emailS = voterDetails.get(0).getEmail();
+        email.setText(emailS);
+
+        String cnicS = voterDetails.get(0).getCnic();
+        cnic.setText(cnicS);
+
+        String addressS = voterDetails.get(0).getPermanentAddress();
+        address.setText(addressS);
     }
 }

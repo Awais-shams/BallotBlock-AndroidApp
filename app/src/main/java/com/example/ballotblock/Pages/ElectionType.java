@@ -56,7 +56,7 @@ public class ElectionType extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle("BallotBlock");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //        Bottom Navigation Bar
         BottomNavigationView bottomNavigationView =  findViewById(R.id.bottomNavigation);

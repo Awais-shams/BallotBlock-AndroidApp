@@ -96,11 +96,11 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(applied == false) {
-//                        if user haven't clicked on Apply Now before
-                        Toast.makeText(context.getApplicationContext(), "Please click on Apply Now below to register for elections.", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+//                    if(applied == false) {
+////                        if user haven't clicked on Apply Now before
+//                        Toast.makeText(context.getApplicationContext(), "Please click on Apply Now below to register for elections.", Toast.LENGTH_SHORT).show();
+//                        return;
+//                    }
 
 
 //    //                  Alert Dialog Box to take id from user
@@ -169,11 +169,8 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
 //                        }
 //                    });
 //                    myDialog.show();
-
                     String electionUuid = myList.get(position).getUuid();
-
                     sendApplyRequest(electionUuid);
-
 //                    Toast.makeText(context.getApplicationContext(), "Yayy u clicked on Button.", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -181,7 +178,6 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
         }
 //        when clicked on "Apply to Vote" button -- checks if user has applied to participate in election or not and providing givenId
         public void sendApplyRequest(String electionUuid) {
-
             apiInterface = MyRetrofit.getRetrofit().create(MyRetrofitInterface.class);
             sharedPreferences = context.getSharedPreferences("MyFile",0);
 
@@ -204,7 +200,7 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
                     if (response.isSuccessful()) {
                         VoterVerifyRespModel voterVerifyRespModel = response.body();
                         String message = voterVerifyRespModel.getMessage();
-                        applied = true;
+//                        applied = true;
 
                         if (!voterVerifyRespModel.isRegistered()) {
                             Toast.makeText(context.getApplicationContext(), "You have successfully applied for this election.", Toast.LENGTH_SHORT).show();
@@ -212,7 +208,7 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
                         }
                     }
                     else {
-                        applied = true;
+//                        applied = true;
                         Toast.makeText(context.getApplicationContext(), "Voter already applied for registeration of election", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -221,7 +217,7 @@ public class ElectionTypeAdapter extends RecyclerView.Adapter<ElectionTypeAdapte
                     Toast.makeText(context.getApplicationContext(), "API fetch failed.", Toast.LENGTH_SHORT).show();
                 }
             });
-            givenId = null;
+//            givenId = null;
         }
 
 //        when clicked on Election Card -- checks if user is permitted to vote in election or not.

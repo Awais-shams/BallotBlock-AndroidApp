@@ -51,37 +51,22 @@
         app:layout_constraintTop_toBottomOf="@+id/emailTxt"
         tools:ignore="TextContrastCheck" />
 
+
     <Button
         android:id="@+id/loginBtn"
         android:layout_width="300dp"
         android:layout_height="60dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="56dp"
         android:background="@drawable/login_custom_button"
-        android:textColor="@color/white"
-        android:text="@string/log_in"
         android:onClick="LogIn"
+        android:text="@string/log_in"
         android:textAllCaps="false"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passTxt" />
-
-    <Button
-        android:id="@+id/forgotPassBtn"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="112dp"
-        android:background="@drawable/custom_button"
-        android:text="@string/forgot_password"
-        android:onClick="forgotPass"
-        android:textAllCaps="false"
-        android:textColor="@color/themePrimary"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passTxt" />
-
 
     <ImageView
         android:id="@+id/logo"
@@ -105,7 +90,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forgotPassBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
 
     <TextView
         android:id="@+id/signupLinkTxtView"

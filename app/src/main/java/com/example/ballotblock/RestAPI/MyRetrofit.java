@@ -1,5 +1,7 @@
 package com.example.ballotblock.RestAPI;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -11,6 +13,12 @@ public class MyRetrofit {
 //    public static String uRL = "https://ballotblock.herokuapp.com/";
 
     public static Retrofit getRetrofit() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .build();
+
         if(retrofit == null){
             retrofit = new Retrofit.Builder().baseUrl(uRL).addConverterFactory(GsonConverterFactory.create()).build();
         }

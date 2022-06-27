@@ -59,6 +59,8 @@ dependencies {
     //rest api
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+//  Logging Network Calls
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
 //    Web3j
     implementation 'org.web3j:core:4.8.7-android'
 }

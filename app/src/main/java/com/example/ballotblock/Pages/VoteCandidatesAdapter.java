@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ballotblock.Pages.com.example.ballotblock.Election;
 import com.example.ballotblock.R;
+import com.example.ballotblock.RestAPI.MyRetrofitInterface;
 import com.example.ballotblock.RestAPI.VoteCandidatesModel;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -28,6 +29,7 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.gas.DefaultGasProvider;
 
 import java.io.File;
+import java.math.BigInteger;
 import java.security.Provider;
 import java.security.Security;
 import java.util.ArrayList;
@@ -42,6 +44,7 @@ public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAd
     SharedPreferences sharedPreferences;
 //    electionContractAddress will remain same for all list of candidates, because candidates are filtered and shown for only that specific election.
     String electionContractAddress;
+    MyRetrofitInterface apiInterface;
 
     public VoteCandidatesAdapter(ArrayList<VoteCandidatesModel> myList, Context context, String electionContractAddress) {
         this.myList = myList;
@@ -175,7 +178,6 @@ public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAd
 
 //            candidateAddress = "0xb18DCb383237b27fD770f7BE4DA8B1fCd9BBb1d3";
 
-
 //                CompletableFuture<TransactionReceipt> vote = contract.vote(candidateAddress).sendAsync();
 
             String result = null;
@@ -193,25 +195,29 @@ public class VoteCandidatesAdapter extends RecyclerView.Adapter<VoteCandidatesAd
 
 
 //            getting status of election Deployed, Voting or Ended.
-//            try {
-//                Log.d("tagg", "Status of Election: " + contract.getStatus().sendAsync().get());
-//            } catch (ExecutionException e) {
-//                e.printStackTrace();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+            try {
+//                status of election = 1 , means SC is in voting state
+                Log.d("tagg", "Status of Election: " + contract.getStatus().sendAsync().get());
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
 //            getting address of candidate which user casted vote to.
-//            try {
-//                Log.d("tagg", "Candidate Address: " + contract.candidateAddresses(BigInteger.valueOf(0)).sendAsync().get());
-//            } catch (ExecutionException e) {
-//                e.printStackTrace();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                Log.d("tagg", "Candidate Address: " + contract.candidateAddresses(BigInteger.valueOf(0)).sendAsync().get());
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
+//            call api to send txHash etc to DB
+            String accessToken = sharedPreferences.getString("accessToken","");
 
         }
+
         private void setupBouncyCastle() {
             final Provider provider = Security.getProvider(BouncyCastleProvider.PROVIDER_NAME);
             if (provider == null) {

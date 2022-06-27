@@ -38,7 +38,7 @@ public class HomePage extends AppCompatActivity {
         toolbar = findViewById(R.id.myToolbar);
         setSupportActionBar(toolbar);
 //        for back button, we can also customize back btn - to customize see link bookmarked
-        getSupportActionBar().setTitle("Home Page");
+        getSupportActionBar().setTitle("BallotBlock");
 
 //        Bottom Navigation Bar
         BottomNavigationView bottomNavigationView =  findViewById(R.id.bottomNavigation);
