@@ -24,6 +24,7 @@ public class HomePage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         sharedPreferences = getSharedPreferences("MyFile",0);
 //            check if user is logged in.
         String accessToken = sharedPreferences.getString("accessToken",null);

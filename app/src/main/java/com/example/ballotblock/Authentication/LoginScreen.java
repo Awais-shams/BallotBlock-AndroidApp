@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ballotblock.Pages.HomePage;
+import com.example.ballotblock.Pages.LoadingDialog;
 import com.example.ballotblock.Pages.Profile;
 import com.example.ballotblock.R;
 import com.example.ballotblock.RestAPI.AccessToken;
@@ -36,6 +37,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import jnr.constants.platform.Access;
+import jnr.ffi.provider.LoadedLibrary;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,6 +48,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     MyRetrofitInterface apiInterface;
     SharedPreferences sharedPreferences;
     boolean isPressed = false;
+    LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,8 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         apiInterface = MyRetrofit.getRetrofit().create(MyRetrofitInterface.class);
 
         sharedPreferences = getSharedPreferences("MyFile",0);
+
+        loadingDialog = new LoadingDialog(LoginScreen.this);
 
     }
 
@@ -93,6 +98,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     }
 
     public void LogIn(View view) {
+        loadingDialog.startLoadingDialog();
         String emailS = email.getText().toString().trim();
         String passwordS = pass.getText().toString().trim();
 
@@ -149,8 +155,6 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                         editor.putString("walletDir", walletDirectory);
                         editor.apply();
 
-
-
 //                        get voter details voter/:uuid api and store wallet address from it
                         getVoterDetails();
 
@@ -158,13 +162,16 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
                         Intent intent = new Intent(LoginScreen.this, HomePage.class);
                         startActivity(intent);
+                        loadingDialog.dismissDialog();
                         finish();
                     }
                     else {
+                        loadingDialog.dismissDialog();
                         Toast.makeText(LoginScreen.this, "No Such Username Password exist.", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
+                    loadingDialog.dismissDialog();
                     Toast.makeText(LoginScreen.this, "Wrong UserName Password.", Toast.LENGTH_SHORT).show();
                 }
             }
